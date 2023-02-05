@@ -1,0 +1,12 @@
+@startuml diagSeqCadProjetosDePesquisa
+!include %getenv("HOME")/Projetos de Pesquisa/cabecalhoProjetosDePesquisa.wsd
+
+title "Diagrama de Sequência do Cadastro de Projetos de Pesquisa"
+
+pesq -> uiPP ++: Preenche formulário
+uiPP -> contPP ++: regProjetoPesquisa()
+contPP -->> pp **: <<create>>
+pp --> contPP : Projeto de Pesquisa criado
+contPP -->> uiPP: Mensagem de confirmação
+
+@enduml

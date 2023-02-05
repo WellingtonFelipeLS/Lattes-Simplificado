@@ -1,0 +1,36 @@
+@startuml testeDiagramaDeClasses
+Currículo "1..1" *-- "0..N" "Atuação Profissional"
+"ControleAtuaçãoProfissional" --> "Atuação Profissional"
+"CadAtuacaoProfissionalUI" --> "ControleAtuaçãoProfissional"
+
+class "Atuação Profissional" {
+	anoDeInicio: Integer
+	anoDeTermino: Integer
+	instituicao: String
+	vinculo: String
+	enquadFuncional: String
+	regime: String
+}
+
+abstract class "Formação Acadêmica" 
+
+Currículo *-- "Projeto de Pesquisa"
+Currículo *-- "Formação Acadêmica"
+Currículo *-- "Orientação Acadêmica"
+Currículo *-- "Produção Técnica"
+Currículo *-- "Proficiência em Idiomas"
+Currículo *-- "Produção Bibliográfica"
+Currículo *-- "Prêmio"
+Currículo *-- "Linhas De Pesquisa"
+
+enum NivelProficiencia
+"Proficiência em Idiomas" -- NivelProficiencia
+"ControleProficiênciaIdioma" --> "Proficiência em Idiomas"
+"ControleProficiênciaIdioma" --> NivelProficiencia
+
+"Formação Acadêmica" <|-- Graduação 
+"Formação Acadêmica" <|-- PosGraduação
+AreaDeAtuação --> PosGraduação
+ControleFormaçãoAcademica --> "Formação Acadêmica"
+ControleFormaçãoAcademica --> AreaDeAtuação
+@enduml

@@ -1,0 +1,5 @@
+@startuml cabecalhoGlobal
+hide footbox
+
+actor Pesquisador as pesq
+@enduml

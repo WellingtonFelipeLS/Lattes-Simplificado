@@ -1,0 +1,9 @@
+@startuml diagAtivCadProjetosDePesquisa
+title "Diagrama de atividades do cadastro de projetos de pesquisa"
+start
+:Acessar o cadastro de projetos de pesquisa;
+:Exibir o formulario de cadastro de projetos de pesquisa;
+:Solicitar o cadastro do projeto de pesquisa;
+:Cadastrar o projeto de pesquisa;
+stop
+@enduml

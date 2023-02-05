@@ -1,0 +1,9 @@
+@startuml diagAtivEditProjetosDePesquisa
+title "Diagrama de atividades da edição de projetos de pesquisa"
+start
+:Acessar o cadastro de projetos de pesquisa;
+:Exibir o formulario de edição de projetos de pesquisa;
+:Solicitar a edição do projeto de pesquisa;
+:Editar o projeto de pesquisa;
+stop
+@enduml

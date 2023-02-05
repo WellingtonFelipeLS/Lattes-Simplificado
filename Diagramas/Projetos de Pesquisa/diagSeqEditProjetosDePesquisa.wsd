@@ -1,0 +1,17 @@
+@startuml teste2
+!include %getenv("HOME")/Projetos de Pesquisa/cabecalhoProjetosDePesquisa.wsd
+
+title "Diagrama de Sequência do Edição de Projetos de Pesquisa"
+
+activate pp
+
+pesq -> uiPP ++: Preenche formulário
+
+autonumber
+uiPP -> contPP ++: editProjetoPesquisa()
+contPP -> pp: editProjetoPesquisa()
+
+autonumber stop
+pp -->> contPP : Projeto de Pesquisa editado
+contPP -->> uiPP: Mensagem de confirmação
+@enduml

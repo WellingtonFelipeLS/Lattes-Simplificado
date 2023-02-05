@@ -1,0 +1,7 @@
+@startuml cabecalhoProjetosDePesquisa
+!include cabecalhoGlobal.wsd
+
+boundary "Tela de Projetos de Pesquisa" as uiPP 
+control "Controle de Projetos de Pesquisa" as contPP
+entity "Projeto de Pesquisa" as pp
+@enduml
