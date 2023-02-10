@@ -1,7 +1,8 @@
 @startuml cabecalhoProjetosDePesquisa
-!include cabecalhoGlobal.wsd
+!include Diagramas/cabecalhoGlobal.wsd
 
 boundary "Tela de Projetos de Pesquisa" as uiPP 
 control "Controle de Projetos de Pesquisa" as contPP
+database "Projetos de Pesquisa DAO" as dataPP
 entity "Projeto de Pesquisa" as pp
 @enduml

@@ -1,5 +1,5 @@
 @startuml cabecalhoProjetosDePesquisa
-!include cabecalhoGlobal.wsd
+!include Diagramas/cabecalhoGlobal.wsd
  
 boundary "Tela de Linhas de Pesquisa" as uiLP 
 control "Controle de Linhas de Pesquisa" as contLP
