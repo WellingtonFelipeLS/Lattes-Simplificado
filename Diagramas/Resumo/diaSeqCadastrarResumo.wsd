@@ -1,0 +1,20 @@
+@startuml diaSeqCadastrarResumo
+title "Diagrama de Sequência do Cadastro do resumo"
+hide footbox
+
+actor Pesquisador as user
+boundary "Tela do Currículo" as uiRE 
+control "Controle Currículo" as contRE 
+entity "Currículo" as re 
+
+user -> uiRE ++: Preenche formulario
+
+autonumber
+uiRE -> contRE ++: cadastraResumo()
+contRE -->> re **: setResumo(resumo)
+
+autonumber stop
+re -->> contRE : msgConfirmacao()
+contRE -->> uiRE : msgConfirmacao()
+
+@enduml
