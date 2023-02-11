@@ -1,0 +1,42 @@
+@startuml diagramaSeq
+
+    title "Diagrama de Sequência: Cadastro de Formação Acadêmica"
+    hide footbox
+
+    actor Pesquisador as pesq 
+    boundary "Tela Formação Acadêmica" as uiFA
+    control "Controle Formação Acadêmica" as contFA
+    entity "Graduação" as GFA
+    entity "Pos-Graduação" as PGFA 
+    entity "Formação Acadêmica" as FA
+
+    autonumber
+    pesq -> uiFA ++: Cadastrar formação acadêmica
+    uiFA --> contFA ++: Verifica escolha do pesquisador
+
+    alt Graduação
+        uiFA --> GFA ++: Preenche graduação
+        contFA -> GFA : cadGraduacao() 
+        contFA -> FA : cadFormacaoAcademica(graduacao) <<create>>
+
+    else Pós-Graduação   
+        uiFA --> PGFA ++: Preenche pós-graduação                    
+        contFA -> PGFA : cadPGraduacao()
+        contFA -> FA : cadFormacaoAcademica(pgraduacao) <<create>>
+        
+    else Graduação e Pós-graduação
+        uiFA --> GFA : Preenche graduação
+        contFA -> GFA : cadGraduacao()
+        uiFA --> PGFA : Preenche pós-graduação
+        contFA -> PGFA : cadPGraduacao()
+        contFA -> FA : cadFormacaoAcademica(graduacao,pgraduacao) <<create>>
+    end
+    
+    
+    
+    autonumber stop
+
+    FA --> contFA : Formação acadêmica criada
+    contFA --> uiFA : Mostra formação acadêmica 
+
+@enduml

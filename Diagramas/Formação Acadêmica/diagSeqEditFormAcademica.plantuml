@@ -1,0 +1,40 @@
+@startuml diagramaSeq
+
+    title "Diagrama de Sequência: Edição de Formação Acadêmica"
+    hide footbox
+
+    actor Pesquisador as pesq 
+    boundary "Tela Formação Acadêmica" as uiFA
+    control "Controle Formação Acadêmica" as contFA
+    entity "Graduação" as GFA
+    entity "Pos-Graduação" as PGFA 
+    entity "Formação Acadêmica" as FA
+
+    autonumber
+    pesq -> uiFA ++: Editar formação acadêmica
+    uiFA --> contFA ++: Verifica escolha do pesquisador
+
+    alt Graduação
+        uiFA --> GFA ++: Edita graduação
+        contFA -> GFA : editaGraduacao() 
+        contFA -> FA : editaFormacaoAcademica(graduacao) <<edit>>
+    else Pós-Graduação   
+        uiFA --> PGFA ++: Edita pós-graduação                    
+        contFA -> PGFA : editaPGraduacao()
+        contFA -> FA : editaFormacaoAcademica(pgraduacao) <<edit>>
+    else Graduação e Pós-graduação
+        uiFA --> GFA : Edita graduação
+        contFA -> GFA : editaGraduacao()
+        uiFA --> PGFA : Edita pós-graduação
+        contFA -> PGFA : editaPGraduacao()
+        contFA -> FA : editaFormacaoAcademica(graduacao,pgraduacao) <<edit>>
+    end
+    
+    
+    
+    autonumber stop
+
+    FA --> contFA : Formação acadêmica editada
+    contFA --> uiFA : Mostra formação acadêmica 
+
+@enduml

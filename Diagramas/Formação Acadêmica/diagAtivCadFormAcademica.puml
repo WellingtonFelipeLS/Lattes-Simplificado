@@ -1,0 +1,19 @@
+@startuml   diagramaAtividade
+
+    title "Diagrama de Atividades: Cadastro de Formação Acadêmica"
+
+    (*) --> Acessa cadastro de formação acadêmica 
+    --> Exibe formulário de formação acadêmica
+    if "" then
+    -->[Cadastra graduação] Preenche graduação
+            if "" then
+            ->[Cadastra pós-graduação] "Preenche pós-graduação" as PGrad
+            --> "Cadastra formação acadêmica" as FA
+            else
+            -->[Não cadastra pós-graduação] FA
+            -->(*)
+            endif
+    else
+    -->[Não cadastra graduação] PGrad
+    endif
+@enduml

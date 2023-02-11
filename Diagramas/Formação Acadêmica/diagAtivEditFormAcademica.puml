@@ -1,0 +1,19 @@
+@startuml   diagramaAtividade
+
+    title "Diagrama de Atividades: Edição de Formação Acadêmica"
+
+    (*) --> Acessa formação acadêmica cadastrada
+    --> Exibe formulário de formação acadêmica
+    if "" then
+    -->[Editar graduação] Edita graduação cadastrada
+            if "" then
+            ->[Editar pós-graduação] "Editar pós-graduação cadastrada" as editPG
+            --> "Edita formação acadêmica" as editFA
+            else
+            -->[Não editar pós-graduação] editFA
+            -->(*)
+            endif
+    else
+    -->[Não editar graduação] editPG
+    endif
+@enduml 
