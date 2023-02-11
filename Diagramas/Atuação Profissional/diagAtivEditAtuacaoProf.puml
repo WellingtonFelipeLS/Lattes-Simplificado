@@ -1,0 +1,10 @@
+@startuml   diagramaAtividade
+
+    title "Diagrama de Atividades: Edição de Atuação Profissional"
+
+    (*) --> Acessa atuação profissional cadastrada
+    --> Exibe formulário de atuação profissional 
+    --> Edita dados de atuação profissional
+    -->Edita atuação profissional
+    -->(*)
+@enduml

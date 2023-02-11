@@ -1,0 +1,10 @@
+@startuml   diagramaAtividade
+
+    title "Diagrama de Atividades: Cadastro Atuação Profissional"
+
+    (*) --> Acessa cadastro de atuação profissional 
+    --> Exibe formulário de cadastro de atuação profissional 
+    --> Preencher dados de atuação profissional
+    -->Cadastrar atuação profissional
+    -->(*)
+@enduml
