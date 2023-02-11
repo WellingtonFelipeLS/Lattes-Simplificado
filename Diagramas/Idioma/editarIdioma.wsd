@@ -1,0 +1,19 @@
+@startuml DiagramaEditarIdioma
+title "Diagrama de sequência: Editar Proeficiência em Idioma"
+hide footbox
+
+actor "Pesquisador" as Pesquisador
+boundary "Tela Proeficiência em Idioma" as UIProeficienciaIdioma
+control "ControleProeficienciaIdioma" as ControleProeficienciaIdioma
+entity "ProeficienciaIdioma" as ProeficienciaIdioma
+
+autonumber
+Pesquisador -> UIProeficienciaIdioma++: Edita dados de proeficiência
+UIProeficienciaIdioma -> ControleProeficienciaIdioma++: validarDadosProeficiencia(proeficienciaIdioma)
+ControleProeficienciaIdioma --> UIProeficienciaIdioma: Dados de proeficiência validados
+UIProeficienciaIdioma -> ControleProeficienciaIdioma: alterarProeficienciaIdioma(proeficienciaIdioma)
+ControleProeficienciaIdioma -> ProeficienciaIdioma: <<alterar>>
+ProeficienciaIdioma --> ControleProeficienciaIdioma: Proeficência alterada
+ControleProeficienciaIdioma --> UIProeficienciaIdioma: Proeficência alterada
+autonumber stop
+@enduml

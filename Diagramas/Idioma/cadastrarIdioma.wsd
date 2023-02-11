@@ -1,0 +1,19 @@
+@startuml DiagramaCadastrarIdioma
+title "Diagrama de sequência: Cadastrar Proeficiência em Idioma"
+hide footbox
+
+actor "Pesquisador" as Pesquisador
+boundary "Tela Proeficiência Idioma" as UIProeficienciaIdioma
+control "ControleProeficienciaIdioma" as ControleProeficienciaIdioma
+entity "ProeficienciaIdioma" as ProeficienciaIdioma
+
+autonumber
+Pesquisador -> UIProeficienciaIdioma++: Preenche dados de proeficiencia em idioma
+UIProeficienciaIdioma -> ControleProeficienciaIdioma++: validarDadosProeficiencia(proeficienciaIdioma)
+ControleProeficienciaIdioma --> UIProeficienciaIdioma: Dados de proeficiência validados
+UIProeficienciaIdioma -> ControleProeficienciaIdioma: cadastrarProeficienciaIdioma(proeficienciaIdioma)
+ControleProeficienciaIdioma -> ProeficienciaIdioma: <<criar>>
+ProeficienciaIdioma --> ControleProeficienciaIdioma: Nova proeficiência criada
+ControleProeficienciaIdioma --> UIProeficienciaIdioma: Nova Proeficiência em Idioma cadastrada
+autonumber stop
+@enduml

@@ -1,0 +1,19 @@
+@startuml DiagramaCadastrarProducaoBibliografica
+title "Diagrama de sequência: Cadastrar Produção Bibliográfica"
+hide footbox
+
+actor "Pesquisador" as Pesquisador
+boundary "Tela Produção Bibliográfica" as UIProducaoBibliografica
+control "ControleProducaoBibliografica" as ControleProducaoBibliografica
+entity "ProducaoBibliografica" as ProducaoBibliografica
+
+autonumber
+Pesquisador -> UIProducaoBibliografica++: Preenche dados da produção bibliográfica
+UIProducaoBibliografica -> ControleProducaoBibliografica++: validarProducaoBibliografica(producao)
+ControleProducaoBibliografica --> UIProducaoBibliografica: Produção Bibliográfica validada
+UIProducaoBibliografica -> ControleProducaoBibliografica: cadastrarProducaoBibliografica(producao)
+ControleProducaoBibliografica -> ProducaoBibliografica: <<criar>>
+ProducaoBibliografica --> ControleProducaoBibliografica: Produção Bibliográfica criada
+ControleProducaoBibliografica --> UIProducaoBibliografica: Nova Produção Bibliográfica
+autonumber stop
+@enduml

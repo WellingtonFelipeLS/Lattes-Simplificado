@@ -1,0 +1,19 @@
+@startuml DiagramaCadastrarPremio
+title "Diagrama de sequência: Cadastrar Prêmio"
+hide footbox
+
+actor "Pesquisador" as Pesquisador
+boundary "Tela Prêmio" as UIPremio
+control "ControlePremio" as ControlePremio
+entity "Premio" as Premio
+
+Pesquisador --> UIPremio ++: Preenche dados do prêmio
+autonumber
+UIPremio -> ControlePremio++: validarDadosPremio(premio)
+ControlePremio --> UIPremio: Prêmio validado
+UIPremio -> ControlePremio: cadastrarPremio(premio)
+ControlePremio -> Premio: <<criar>>
+Premio --> ControlePremio: Prêmio criado
+ControlePremio --> UIPremio: Novo Prêmio
+autonumber stop
+@enduml

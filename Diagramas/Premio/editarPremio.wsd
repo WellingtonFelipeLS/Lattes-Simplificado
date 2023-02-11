@@ -1,0 +1,19 @@
+@startuml DiagramaEditarPremio
+title "Diagrama de sequência: Editar Prêmio"
+hide footbox
+
+actor "Pesquisador" as Pesquisador
+boundary "Tela Prêmio" as UIPremio
+control "ControlePremio" as ControlePremio
+entity "Premio" as Premio
+
+autonumber
+Pesquisador --> UIPremio ++: Altera dados do prêmio
+UIPremio -> ControlePremio++: validaDadosPremio(premio)
+ControlePremio --> UIPremio: Prêmio validado
+UIPremio -> ControlePremio: alterarPremio(premio)
+ControlePremio -> Premio: <<alterar>>
+Premio --> ControlePremio: Prêmio alterado
+ControlePremio --> UIPremio: Novo Prêmio alterado
+autonumber stop
+@enduml

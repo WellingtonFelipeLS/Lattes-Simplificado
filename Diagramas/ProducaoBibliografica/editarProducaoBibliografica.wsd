@@ -1,0 +1,19 @@
+@startuml DiagramaEditarProducao
+title "Diagrama de sequência: Editar Produção Bibliográfica"
+hide footbox
+
+actor "Pesquisador" as Pesquisador
+boundary "Tela Produção Bibliográfica" as UIEditarProducaoBibliografica
+control "ControleProducaoBibliografica" as ControleProducaoBibliografica
+entity "ProducaoBibliografica" as ProducaoBibliografica
+
+autonumber
+Pesquisador -> UIEditarProducaoBibliografica++: Edita dados de proeficência bibliográfica
+UIEditarProducaoBibliografica -> ControleProducaoBibliografica++: validarDadosProducao(producao)
+ControleProducaoBibliografica --> UIEditarProducaoBibliografica: Dados de produção bibliográfica validados
+UIEditarProducaoBibliografica -> ControleProducaoBibliografica: alterarProducaoBibliografica(producao)
+ControleProducaoBibliografica -> ProducaoBibliografica: <<editar>>
+ProducaoBibliografica --> ControleProducaoBibliografica: Produção bibliográfica editada
+ControleProducaoBibliografica --> UIEditarProducaoBibliografica: Produção bibliográfica editada
+autonumber stop
+@enduml
