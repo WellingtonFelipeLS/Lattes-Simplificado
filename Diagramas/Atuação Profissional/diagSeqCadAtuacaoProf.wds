@@ -1,0 +1,19 @@
+@startuml diagramaSeq
+
+    title "Diagrama de Sequência: Cadastro de Atuação Profissional"
+    hide footbox
+
+    actor Pesquisador as pesq 
+    boundary "Tela Atuação Profissional" as uiAProf
+    control "Controle Atuação Profissional" as contAProf
+    entity "Atuação Profissional" as AProf
+
+    autonumber
+    pesq -> uiAProf ++: Preenche dados de atuação profissional
+    uiAProf -> contAProf ++: cadAtuacaoProf()
+    contAProf -> AProf **: <<create>>
+    autonumber stop
+    AProf --> contAProf : Atuação profissional criada
+    contAProf --> uiAProf : Mostra atuação profissional 
+
+@enduml
