@@ -1,9 +1,0 @@
-@startuml diagAtivCadLinhasDePesquisa
-title "Diagrama de atividades do cadastro de linhas de pesquisa"
-start
-:Acessar o cadastro de linhas de pesquisa;
-:Exibir o formulario de cadastro de linhas de pesquisa;
-:Solicitar o cadastro da linha de pesquisa;
-:Cadastrar a linha de pesquisa;
-stop
-@enduml

@@ -1,0 +1,17 @@
+' @startuml diagSeqCadProducaoTecnica
+!include cabecalhoProducaoTecnica.wsd
+
+title "Diagrama de Sequência do Cadastro de Produção Técnica"
+
+pesq -> uiPT ++: Preenche formulário
+uiPT -> contPT ++: validarDados(prodTecnica)
+contPT -->> uiPT: Dados Validados
+uiPT -> contPT : cadastrarProdTecnica()
+
+
+contPT -->> pt **: <<create>>
+pt --> contPT : Producao Tecnica Cadastrada
+contPT --> uiPT: Mensagem de confirmação
+
+
+@enduml

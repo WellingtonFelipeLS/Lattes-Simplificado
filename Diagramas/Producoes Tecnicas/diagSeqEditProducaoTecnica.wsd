@@ -1,0 +1,19 @@
+@startuml diagSeqEditProducaoTecnica
+
+!include cabecalhoProducaoTecnica.wsd
+
+title "Diagrama de Sequência de Edição de Produção Técina"
+
+
+pesq -> uiPT ++: Preenche formulário
+uiPT -> contPT ++: validarDados(prodTecnica)
+contPT -->> uiPT: Dados Validados
+uiPT -> contPT : editProducaoTecnica(prodTecnica)
+contPT -> pt ++: <<edit>>
+
+pt -->> contPT : Producao Tecnica Editada
+
+contPT -->> uiPT: Projeto de pesquisa editado
+
+
+@enduml

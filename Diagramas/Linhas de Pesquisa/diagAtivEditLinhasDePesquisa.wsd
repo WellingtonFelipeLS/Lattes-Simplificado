@@ -1,9 +1,0 @@
-@startuml diagAtivEditLinhassDePesquisa
-title "Diagrama de atividades da edição de linhas de pesquisa"
-start
-:Acessar o cadastro de linhas de pesquisa;
-:Exibir o formulario de edição de linhas de pesquisa;
-:Solicitar a edição da linha de pesquisa;
-:Editar a linha de pesquisa;
-stop
-@enduml
