@@ -1,19 +1,24 @@
 @startuml DiagramaCadastrarIdioma
-title "Diagrama de sequência: Cadastrar Proeficiência em Idioma"
+title "Diagrama de sequência: Cadastro de Proficiência em Idioma"
 hide footbox
 
 actor "Pesquisador" as Pesquisador
-boundary "Tela Proeficiência Idioma" as UIProeficienciaIdioma
-control "ControleProeficienciaIdioma" as ControleProeficienciaIdioma
-entity "ProeficienciaIdioma" as ProeficienciaIdioma
+boundary "Tela de Proficiência em Idioma" as UIProficienciaIdioma
+control "Controle de Proficiencia em Idioma" as ControleProficienciaIdioma
+entity "Proficiencia em Idioma" as ProficienciaIdioma
+
+Pesquisador -> UIProficienciaIdioma++: Solicita o cadastro
 
 autonumber
-Pesquisador -> UIProeficienciaIdioma++: Preenche dados de proeficiencia em idioma
-UIProeficienciaIdioma -> ControleProeficienciaIdioma++: validarDadosProeficiencia(proeficienciaIdioma)
-ControleProeficienciaIdioma --> UIProeficienciaIdioma: Dados de proeficiência validados
-UIProeficienciaIdioma -> ControleProeficienciaIdioma: cadastrarProeficienciaIdioma(proeficienciaIdioma)
-ControleProeficienciaIdioma -> ProeficienciaIdioma: <<criar>>
-ProeficienciaIdioma --> ControleProeficienciaIdioma: Nova proeficiência criada
-ControleProeficienciaIdioma --> UIProeficienciaIdioma: Nova Proeficiência em Idioma cadastrada
+UIProficienciaIdioma -> ControleProficienciaIdioma++: cadProfIdioma(profIdioma)
+
+group Enquanto os dados forem inválidos
+ControleProficienciaIdioma -->> UIProficienciaIdioma: Mensagem de dados inválidos
+UIProficienciaIdioma -> ControleProficienciaIdioma: cadProfIdioma(profIdioma)
+end
+
+ControleProficienciaIdioma -->> ProficienciaIdioma **: <<create>>
+ProficienciaIdioma -->> ControleProficienciaIdioma: Proficiência em idioma criada
+ControleProficienciaIdioma -->> UIProficienciaIdioma --: Mensagem de confirmação
 autonumber stop
 @enduml

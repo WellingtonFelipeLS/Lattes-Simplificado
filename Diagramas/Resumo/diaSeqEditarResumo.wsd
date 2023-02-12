@@ -7,14 +7,20 @@ boundary "Tela do Currículo" as uiRE
 control "Controle do Currículo" as contRE 
 entity "Currículo" as res
 
-user -> uiRE ++: Preenche formulario
+user -> uiRE ++: Solicita a edição
 
 autonumber
-uiRE -> contRE ++: editarResumo()
-contRE -->> res **: editResumo()
+uiRE -> contRE ++: editResumo(resumo)
+
+group Enquanto os dados forem inválidos
+contRE -->> uiRE: Mensagem de dados inválidos
+uiRE -> contRE: editResumo(resumo)
+end
+
+contRE -->> res ++: setResumo(resumo)
 
 autonumber stop
-res -->> contRE : msgConfirmacao()
-contRE -->> uiRE : msgConfirmacao()
+res -->> contRE --: Resumo editado
+contRE -->> uiRE --: Mensagem de confirmação
 
 @enduml

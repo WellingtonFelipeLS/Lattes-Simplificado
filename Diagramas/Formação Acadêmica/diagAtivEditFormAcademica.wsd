@@ -2,18 +2,16 @@
 
     title "Diagrama de Atividades: Edição de Formação Acadêmica"
 
-    (*) --> Acessa formação acadêmica cadastrada
-    --> Exibe formulário de formação acadêmica
-    if "" then
-    -->[Editar graduação] Edita graduação cadastrada
-            if "" then
-            ->[Editar pós-graduação] "Editar pós-graduação cadastrada" as editPG
-            --> "Edita formação acadêmica" as editFA
-            else
-            -->[Não editar pós-graduação] editFA
-            -->(*)
-            endif
-    else
-    -->[Não editar graduação] editPG
+    start
+    :Acessa edição de formação acadêmica;
+    :Exibir formulário de formação acadêmica;
+    if (Tipo de formação) then (Graduação)
+    	:Preencher formulário de Graduação;
+		:Soliciar edição;
+		stop
+    else (Pós-Graduação)
+    	:Preencher formulário de Pós-Graduação;
+		:Soliciar edição;
+		stop
     endif
 @enduml 

@@ -1,20 +1,25 @@
 @startuml diaSeqCadastrarResumo
-title "Diagrama de Sequência do Cadastro do resumo"
+title "Diagrama de Sequência: Cadastro do resumo"
 hide footbox
 
 actor Pesquisador as user
 boundary "Tela do Currículo" as uiRE 
-control "Controle Currículo" as contRE 
+control "Controle de Currículo" as contRE 
 entity "Currículo" as re 
 
-user -> uiRE ++: Preenche formulario
+user -> uiRE ++: Solicita o cadastro
 
 autonumber
-uiRE -> contRE ++: cadastraResumo()
-contRE -->> re **: setResumo(resumo)
+uiRE -> contRE ++: cadResumo(resumo)
 
-autonumber stop
-re -->> contRE : msgConfirmacao()
-contRE -->> uiRE : msgConfirmacao()
+group Enquanto os dados forem inválidos
+contRE -->> uiRE: Mensagem de dados inválidos
+uiRE -> contRE: cadResumo(resumo)
+end
+
+contRE -->> re ++: setResumo(resumo)
+
+re -->> contRE --: Resumo cadastrado
+contRE -->> uiRE --: Mensagem de confirmação
 
 @enduml

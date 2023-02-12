@@ -4,39 +4,36 @@
     hide footbox
 
     actor Pesquisador as pesq 
-    boundary "Tela Formação Acadêmica" as uiFA
-    control "Controle Formação Acadêmica" as contFA
+    boundary "Tela de Formação Acadêmica" as uiFA
+    control "Controle de Formação Acadêmica" as contFA
     entity "Graduação" as GFA
-    entity "Pos-Graduação" as PGFA 
-    entity "Formação Acadêmica" as FA
+    entity "Pós-Graduação" as PGFA
+	entity "Área de Pesquisa" as APesq
 
-    autonumber
-    pesq -> uiFA ++: Cadastrar formação acadêmica
-    uiFA --> contFA ++: Verifica escolha do pesquisador
+    pesq -> uiFA ++: Solicita o cadastro
+
+	autonumber
+    uiFA -> uiFA ++: Verifica tipo de formação
 
     alt Graduação
-        uiFA --> GFA ++: Preenche graduação
-        contFA -> GFA : cadGraduacao() 
-        contFA -> FA : cadFormacaoAcademica(graduacao) <<create>>
+		uiFA -->> uiFA --: formGrad()
+		uiFA -> contFA: cadGrad(grad)
+        contFA -->> GFA **: <<create>>
+		GFA -->> contFA : Graduaçao criada
+    else Pós-Graduação
+		activate uiFA
+		uiFA -->> uiFA --: formPosGrad()
 
-    else Pós-Graduação   
-        uiFA --> PGFA ++: Preenche pós-graduação                    
-        contFA -> PGFA : cadPGraduacao()
-        contFA -> FA : cadFormacaoAcademica(pgraduacao) <<create>>
-        
-    else Graduação e Pós-graduação
-        uiFA --> GFA : Preenche graduação
-        contFA -> GFA : cadGraduacao()
-        uiFA --> PGFA : Preenche pós-graduação
-        contFA -> PGFA : cadPGraduacao()
-        contFA -> FA : cadFormacaoAcademica(graduacao,pgraduacao) <<create>>
+        uiFA -> contFA : cadPosGrad(posGrad)
+        contFA -->> PGFA **: <<create>>
+		PGFA -->> contFA : Pós-Graduaçao criada
+		contFA -->> uiFA : Mensagem de confirmação
+
+		uiFA -> contFA : cadAreaPesq(areaPesq)
+		contFA -->> APesq **: <<create>>
+		APesq -->> contFA : Área de Atuação criada
     end
-    
-    
-    
-    autonumber stop
 
-    FA --> contFA : Formação acadêmica criada
-    contFA --> uiFA : Mostra formação acadêmica 
+    contFA -->> uiFA : Mensagem de confirmação
 
 @enduml
