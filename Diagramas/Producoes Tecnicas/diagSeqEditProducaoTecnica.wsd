@@ -2,18 +2,20 @@
 
 !include cabecalhoProducaoTecnica.wsd
 
-title "Diagrama de Sequência de Edição de Produção Técina"
+title "Diagrama de Sequência: Edição de Produção Técnica"
 
+pesq -> uiPT ++: Solicita a edição
 
-pesq -> uiPT ++: Preenche formulário
-uiPT -> contPT ++: validarDados(prodTecnica)
-contPT -->> uiPT: Dados Validados
-uiPT -> contPT : editProducaoTecnica(prodTecnica)
-contPT -> pt ++: <<edit>>
+uiPT -> contPT ++: editProdTec(prodTec)
 
-pt -->> contPT : Producao Tecnica Editada
+group Enquanto os dados forem inválidos
+contPT -->> uiPT: Mensagem de dados inválidos
+uiPT -> contPT: editProdTec(prodTec)
+end
 
-contPT -->> uiPT: Projeto de pesquisa editado
+contPT -->> pt ++: <<edit>>
+pt -->> contPT --: Produção Técnica editada
+contPT -->> uiPT --: Mensagem de confirmação
 
 
 @enduml

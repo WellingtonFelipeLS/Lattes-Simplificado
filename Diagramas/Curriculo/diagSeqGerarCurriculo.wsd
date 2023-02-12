@@ -1,0 +1,20 @@
+@startuml diaSeqGerarCurriculo
+title "Diagrama de Sequência: Geração do currículo"
+hide footbox
+
+actor Pesquisador as user
+boundary "Tela do Currículo" as uiRE 
+control "Controle de Currículo" as contRE 
+entity "Currículo" as re 
+
+user -> uiRE ++: Solicita a geração
+
+autonumber
+uiRE -> contRE ++: gerarCurriculo()
+
+contRE -> re ++: gerarCurriculo()
+
+re -->> contRE --: Currículo gerado
+contRE -->> uiRE --: Mensagem de confirmação
+
+@enduml
