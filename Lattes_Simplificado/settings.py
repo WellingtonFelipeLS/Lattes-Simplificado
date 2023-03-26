@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,7 +38,7 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
-	'cadastro',
+	'curriculo'
 ]
 
 MIDDLEWARE = [
@@ -77,9 +78,9 @@ WSGI_APPLICATION = 'Lattes_Simplificado.wsgi.application'
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql',
-		'NAME':'Lattes_Simplificado',
-		'USER': 'admin',
-		'PASSWORD': 'umasenhamuitoforte',
+		'NAME':'lattes_simplificado_db',
+		'USER': 'lattes_adm',
+		'PASSWORD': 'lattes@221',
 		'HOST': 'localhost',
 		'PORT': '5432',
 	}

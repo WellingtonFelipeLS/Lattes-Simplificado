@@ -5,7 +5,9 @@
 __pycache__
 db.sqlite3
 media
-
+.DS_Store
+Diagramas/.DS_Store
+lattes_db_view.pdf
 # Backup files # 
 *.bak 
 
