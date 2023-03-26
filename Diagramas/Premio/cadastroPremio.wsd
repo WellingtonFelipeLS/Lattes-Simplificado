@@ -1,19 +1,24 @@
 @startuml DiagramaCadastrarPremio
-title "Diagrama de sequência: Cadastrar Prêmio"
+title "Diagrama de Sequência: Cadastro de Prêmio"
 hide footbox
 
 actor "Pesquisador" as Pesquisador
-boundary "Tela Prêmio" as UIPremio
-control "ControlePremio" as ControlePremio
-entity "Premio" as Premio
+boundary "Tela de Prêmio" as UIPremio
+control "Controle de Prêmio" as ControlePremio
+entity "Prêmio" as Premio
 
-Pesquisador --> UIPremio ++: Preenche dados do prêmio
+Pesquisador --> UIPremio ++: Solicita o cadastro
+
 autonumber
-UIPremio -> ControlePremio++: validarDadosPremio(premio)
-ControlePremio --> UIPremio: Prêmio validado
-UIPremio -> ControlePremio: cadastrarPremio(premio)
-ControlePremio -> Premio: <<criar>>
-Premio --> ControlePremio: Prêmio criado
-ControlePremio --> UIPremio: Novo Prêmio
-autonumber stop
+UIPremio -> ControlePremio ++: cadPremio(premio)
+
+group Enquanto os dados forem inválidos
+ControlePremio -->> UIPremio: Mensagem de dados inválidos
+UIPremio -> ControlePremio: cadPremio(premio)
+end
+
+ControlePremio -->> Premio **: <<create>>
+Premio -->> ControlePremio: Prêmio criado
+ControlePremio -->> UIPremio --: Mensagem de confirmação
+
 @enduml

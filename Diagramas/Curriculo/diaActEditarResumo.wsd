@@ -1,0 +1,9 @@
+@startuml Diagrama de Atividades de Edição do Resumo
+
+(*) --> "Acessa a edição de resumo"
+"Acessa a edição de resumo" --> "Exibe formulario de edição de resumo"
+"Exibe formulario de edição de resumo" --> "Preenche o resumo"
+"Preenche o resumo" --> "Edita o resumo"
+"Edita o resumo" --> (*)
+
+@enduml

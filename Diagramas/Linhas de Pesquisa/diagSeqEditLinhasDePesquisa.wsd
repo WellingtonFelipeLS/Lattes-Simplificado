@@ -1,0 +1,21 @@
+@startuml diagSeqEditLinhasDePesquisa
+!include Diagramas/Linhas de Pesquisa/cabecalhoLinhasDePesquisa.wsd
+
+title "Diagrama de Sequência: Edição de Linhas de Pesquisa"
+
+pesq -> uiLP ++: Solicita a edição
+
+autonumber
+uiLP -> contLP ++: editLinhaPesquisa(linhaPesquisa)
+
+group Enquanto os dados forem inválidos
+contLP -->> uiLP: Mensagem de dados inválidos
+uiLP -> contLP: editLinhaPesquisa(linhaPesquisa)
+end
+
+contLP -->> lp ++: <<edit>>
+
+lp -->> contLP --: Linha de Pesquisa editada
+contLP -->> uiLP --: Mensagem de confirmação
+
+@enduml

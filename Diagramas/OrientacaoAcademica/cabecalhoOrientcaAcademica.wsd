@@ -1,0 +1,7 @@
+@startuml cabecalhoOrientacaoAcademica
+!include Diagramas/cabecalhoGlobal.wsd
+
+boundary "Tela de Orientação Acadêmica" as uiOT
+control "Controle de Orientação Acadêmica" as contOT
+entity "Orientação Acadêmica" as ot
+@enduml

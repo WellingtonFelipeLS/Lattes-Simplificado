@@ -1,12 +1,21 @@
 @startuml diagSeqCadLinhasDePesquisa
-!include %getenv("HOME")/Linhas de Pesquisa/cabecalhoLinhasDePesquisa.wsd
+!include Diagramas/Linhas de Pesquisa/cabecalhoLinhasDePesquisa.wsd
 
-title "Diagrama de Sequência do Cadastro de Linhas de Pesquisa"
+title "Diagrama de Sequência: Cadastro de Linhas de Pesquisa"
 
-pesq -> uiLP ++: Preenche formulário
-uiLP -> contLP ++: regLinhaPesquisa()
+pesq -> uiLP ++: Solicita o cadastro
+
+autonumber
+uiLP -> contLP ++: cadLinhaPesquisa(linhaPesquisa)
+
+group Enquanto os dados forem inválidos
+contLP -->> uiLP: Mensagem de dados inválidos
+uiLP -> contLP: cadLinhaPesquisa(linhaPesquisa)
+end
+
 contLP -->> lp **: <<create>>
-lp --> contLP : Linha de Pesquisa criada
-contLP --> uiLP: Mensagem de confirmação
+
+lp -->> contLP: Linha de Pesquisa criada
+contLP -->> uiLP --: Mensagem de confirmação
 
 @enduml

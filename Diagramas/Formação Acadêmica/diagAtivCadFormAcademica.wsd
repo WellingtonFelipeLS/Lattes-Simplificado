@@ -1,0 +1,17 @@
+@startuml   diagramaAtividade
+
+    title "Diagrama de Atividades: Cadastro de Formação Acadêmica"
+
+	start
+    :Acessa cadastro de formação acadêmica;
+    :Exibir formulário de formação acadêmica;
+    if (Tipo de formação) then (Graduação)
+    	:Preencher formulário de Graduação;
+		:Soliciar cadastro da Graduação;
+		stop
+    else (Pós-Graduação)
+    	:Preencher formulário de Pós-Graduação;
+		:Soliciar cadastro da Pós-Graduação;
+		stop
+    endif
+@enduml

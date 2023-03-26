@@ -1,0 +1,20 @@
+' @startuml diagSeqCadProducaoTecnica
+!include cabecalhoProducaoTecnica.wsd
+
+title "Diagrama de Sequência: Cadastro de Produção Técnica"
+
+pesq -> uiPT ++: Solicita o cadastro
+
+uiPT -> contPT ++: cadProdTec(prodTec)
+
+group Enquanto os dados forem inválidos
+contPT -->> uiPT: Mensagem de dados inválidos
+uiPT -> contPT: cadProdTec(prodTec)
+end
+
+contPT -->> pt **: <<create>>
+pt -->> contPT : Produção Técnica criada
+contPT -->> uiPT: Mensagem de confirmação
+
+
+@enduml

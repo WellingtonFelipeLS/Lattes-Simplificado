@@ -1,0 +1,20 @@
+' @startuml diagSeqCadProducaoTecnica
+!include cabecalhoOrientcaAcademica.wsd
+
+title "Diagrama de Sequência: Cadastro de Orienação Tecnica"
+
+pesq -> uiOT ++: Solicita o cadastro
+
+uiOT -> contOT ++: cadOrientacaoAcademica(orientacaoAcad)
+
+group Enquanto os dados forem inválidos
+contOT -->> uiOT: Mensagem de dados inválidos
+uiOT -> contOT: cadOrientacaoAcademica(orientacaoAcad)
+end
+
+contOT -->> ot **: <<create>>
+ot -->> contOT : Orientacao Academica criada
+contOT -->> uiOT: Mensagem de confirmação
+
+
+@enduml

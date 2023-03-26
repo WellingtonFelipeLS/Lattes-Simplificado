@@ -1,9 +1,0 @@
-@startuml Diagrama de Atividades de Cadastro do Resumo
-
-(*) --> "Acessa o cadastro de resumo"
-"Acessa o cadastro de resumo" --> "Exibe formulario de cadastro de resumo"
-"Exibe formulario de cadastro de resumo" --> "Preenche o resumo"
-"Preenche o resumo" --> "Cadastra o resumo"
-"Cadastra o resumo" --> (*)
-
-@enduml
