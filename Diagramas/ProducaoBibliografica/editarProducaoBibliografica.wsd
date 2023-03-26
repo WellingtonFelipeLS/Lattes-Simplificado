@@ -1,19 +1,23 @@
 @startuml DiagramaEditarProducao
-title "Diagrama de sequência: Editar Produção Bibliográfica"
+title "Diagrama de Sequência: Edição de Produção Bibliográfica"
 hide footbox
 
 actor "Pesquisador" as Pesquisador
-boundary "Tela Produção Bibliográfica" as UIEditarProducaoBibliografica
-control "ControleProducaoBibliografica" as ControleProducaoBibliografica
-entity "ProducaoBibliografica" as ProducaoBibliografica
+boundary "Tela de Produção Bibliográfica" as UIEditarProducaoBibliografica
+control "Controle de Produção de Bibliográfica" as ControleProducaoBibliografica
+entity "Produção Bibliográfica" as ProducaoBibliografica
 
+Pesquisador -> UIEditarProducaoBibliografica++: Solicita a edição
 autonumber
-Pesquisador -> UIEditarProducaoBibliografica++: Edita dados de proeficência bibliográfica
-UIEditarProducaoBibliografica -> ControleProducaoBibliografica++: validarDadosProducao(producao)
-ControleProducaoBibliografica --> UIEditarProducaoBibliografica: Dados de produção bibliográfica validados
-UIEditarProducaoBibliografica -> ControleProducaoBibliografica: alterarProducaoBibliografica(producao)
-ControleProducaoBibliografica -> ProducaoBibliografica: <<editar>>
-ProducaoBibliografica --> ControleProducaoBibliografica: Produção bibliográfica editada
-ControleProducaoBibliografica --> UIEditarProducaoBibliografica: Produção bibliográfica editada
+UIEditarProducaoBibliografica -> ControleProducaoBibliografica++: editProdBib(prodBib)
+
+group Enquanto os dados forem inválidos
+ControleProducaoBibliografica -->> UIEditarProducaoBibliografica: Mensagem de dados inválidos
+UIEditarProducaoBibliografica -> ControleProducaoBibliografica: editProdBib(prodBib)
+end
+
+ControleProducaoBibliografica -->> ProducaoBibliografica ++: <<edit>>
+ProducaoBibliografica -->> ControleProducaoBibliografica --: Produção Bibliográfica editada
+ControleProducaoBibliografica -->> UIEditarProducaoBibliografica --: Mensagem de confirmação
 autonumber stop
 @enduml

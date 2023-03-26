@@ -1,12 +1,21 @@
 @startuml diagSeqCadProjetosDePesquisa
-!include %getenv("HOME")/Projetos de Pesquisa/cabecalhoProjetosDePesquisa.wsd
+!include Diagramas/Projetos de Pesquisa/cabecalhoProjetosDePesquisa.wsd
 
-title "Diagrama de Sequência do Cadastro de Projetos de Pesquisa"
+title "Diagrama de Sequência: Cadastro de Projetos de Pesquisa"
 
-pesq -> uiPP ++: Preenche formulário
-uiPP -> contPP ++: regProjetoPesquisa()
+pesq -> uiPP ++: Solicita o cadastro
+
+autonumber
+uiPP -> contPP ++: cadProjPesq(projPesq)
+
+group Enquanto os dados forem inválidos
+contPP -->> uiPP: Mensagem de dados inválidos
+uiPP -> contPP: cadProjPesq(projPesq)
+end
+
 contPP -->> pp **: <<create>>
-pp --> contPP : Projeto de Pesquisa criado
-contPP -->> uiPP: Mensagem de confirmação
+
+pp -->> contPP : Projeto de Pesquisa criado
+contPP -->> uiPP --: Mensagem de confirmação
 
 @enduml

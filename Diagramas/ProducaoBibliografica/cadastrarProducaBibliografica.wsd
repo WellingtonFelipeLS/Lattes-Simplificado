@@ -1,19 +1,24 @@
 @startuml DiagramaCadastrarProducaoBibliografica
-title "Diagrama de sequência: Cadastrar Produção Bibliográfica"
+title "Diagrama de Sequência: Cadastro de Produção Bibliográfica"
 hide footbox
 
 actor "Pesquisador" as Pesquisador
-boundary "Tela Produção Bibliográfica" as UIProducaoBibliografica
-control "ControleProducaoBibliografica" as ControleProducaoBibliografica
-entity "ProducaoBibliografica" as ProducaoBibliografica
+boundary "Tela de Produção Bibliográfica" as UIProducaoBibliografica
+control "Controle de Produção Bibliográfica" as ControleProducaoBibliografica
+entity "Produção Bibliográfica" as ProducaoBibliografica
+
+Pesquisador -> UIProducaoBibliografica++: Solicita o cadastro
 
 autonumber
-Pesquisador -> UIProducaoBibliografica++: Preenche dados da produção bibliográfica
-UIProducaoBibliografica -> ControleProducaoBibliografica++: validarProducaoBibliografica(producao)
-ControleProducaoBibliografica --> UIProducaoBibliografica: Produção Bibliográfica validada
-UIProducaoBibliografica -> ControleProducaoBibliografica: cadastrarProducaoBibliografica(producao)
-ControleProducaoBibliografica -> ProducaoBibliografica: <<criar>>
-ProducaoBibliografica --> ControleProducaoBibliografica: Produção Bibliográfica criada
-ControleProducaoBibliografica --> UIProducaoBibliografica: Nova Produção Bibliográfica
+UIProducaoBibliografica -> ControleProducaoBibliografica++: cadProdBib(prodBib)
+
+group Enquanto os dados forem inválidos
+ControleProducaoBibliografica -->> UIProducaoBibliografica: Mensagem de dados inválidos
+UIProducaoBibliografica -> ControleProducaoBibliografica --: cadProdBib(prodBib)
+end
+
+ControleProducaoBibliografica -->> ProducaoBibliografica **: <<create>>
+ProducaoBibliografica -->> ControleProducaoBibliografica: Produção Bibliográfica criada
+ControleProducaoBibliografica -->> UIProducaoBibliografica --: Mensagem de confirmação
 autonumber stop
 @enduml

@@ -1,0 +1,7 @@
+@startuml cabecalhoProducaoTecnica
+!include Diagramas/cabecalhoGlobal.wsd
+
+boundary "Tela de Produção Técnica" as uiPT 
+control "Controle de Produçao Técnica" as contPT
+entity "Produção Técnica" as pt
+@enduml

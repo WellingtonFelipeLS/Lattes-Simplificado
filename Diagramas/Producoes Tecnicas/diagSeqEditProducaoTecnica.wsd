@@ -1,0 +1,21 @@
+@startuml diagSeqEditProducaoTecnica
+
+!include cabecalhoProducaoTecnica.wsd
+
+title "Diagrama de Sequência: Edição de Produção Técnica"
+
+pesq -> uiPT ++: Solicita a edição
+
+uiPT -> contPT ++: editProdTec(prodTec)
+
+group Enquanto os dados forem inválidos
+contPT -->> uiPT: Mensagem de dados inválidos
+uiPT -> contPT: editProdTec(prodTec)
+end
+
+contPT -->> pt ++: <<edit>>
+pt -->> contPT --: Produção Técnica editada
+contPT -->> uiPT --: Mensagem de confirmação
+
+
+@enduml

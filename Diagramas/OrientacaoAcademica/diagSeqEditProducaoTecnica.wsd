@@ -1,0 +1,21 @@
+@startuml diagSeqEditProducaoTecnica
+
+!include cabecalhoOrientcaAcademica.wsd
+
+title "Diagrama de Sequência: Edição de Orientação Acadêmica"
+
+pesq -> uiOT ++: Solicita a edição
+
+uiOT -> contOT ++: editOrientcaoAcademica(orientacaoAcad)
+
+group Enquanto os dados forem inválidos
+contOT -->> uiOT: Mensagem de dados inválidos
+uiOT -> contOT: editOrientcaoAcademica(orientacaoAcad)
+end
+
+contOT -->> ot ++: <<edit>>
+ot -->> contOT --: Orientação Acadêmica editada
+contOT -->> uiOT --: Mensagem de confirmação
+
+
+@enduml
