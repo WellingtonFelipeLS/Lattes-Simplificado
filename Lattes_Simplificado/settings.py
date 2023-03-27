@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'Lattes_Simplificado.wsgi.application'
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql',
-		'NAME':'lattes_simplificado_db',
-		'USER': 'lattes_adm',
-		'PASSWORD': 'lattes@221',
-		'HOST': 'localhost',
+		'NAME':'',
+		'USER': '',
+		'PASSWORD': '',
+		'HOST': '',
 		'PORT': '5432',
 	}
 }
