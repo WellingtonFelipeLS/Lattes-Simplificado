@@ -79,7 +79,7 @@ class Pesquisador(models.Model):
 	endereco = models.OneToOneField(EnderecoProfissional,on_delete=models.CASCADE)
 	cpf = models.CharField(max_length=11)
 	email = models.EmailField()
-	imagem = models.TextField()
+	foto = models.TextField()
 
 	def __str__(self):
 		return self.nome
