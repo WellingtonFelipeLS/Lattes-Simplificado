@@ -1,0 +1,55 @@
+body {
+	position: relative;
+	width: 1440px;
+	height: 1680px;
+	background: #FFFFFF;
+}
+
+p {
+	font-family: 'Nunito';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 24px;
+	letter-spacing: 0.1px;
+}
+
+h1 {
+	font-family: 'Nunito';
+}
+
+.secoes {
+	width: 940px;
+	margin: 0 auto;
+	padding: 25px 0;
+}
+
+.secoes > div {
+	text-align: left;
+	width: 100%;
+	margin: 3% 0%;
+	padding: 30px 20px;
+	box-sizing: border-box;
+	border: 2px solid #c4bfbf;
+	border-radius: 10px;
+}
+
+.principal div {
+	display: inline-block;
+	text-align: left;
+	position: relative;
+	margin: 0% 3%;
+	bottom: 70px;
+}
+
+#foto {
+	text-align: left;
+	border-radius: 10%;
+	width: 25%;
+}
+
+#resumo {
+	bottom: 0;
+	text-align: justify;
+	margin: 0%;
+}
