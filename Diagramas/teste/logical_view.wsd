@@ -1,0 +1,65 @@
+@startuml
+class Customer {
+  -name: string
+  -id: int
+  -address: string
+  -phone: string
+  -email: string
+  -username: string
+  -password: string
+  +login()
+  +logout()
+  +deposit(amount: float)
+  +withdraw(amount: float)
+  +transfer(amount: float, account_number: int)
+}
+
+class Account {
+  -account_number: int
+  -balance: float
+  -type: string
+  +deposit(amount: float)
+  +withdraw(amount: float)
+  +transfer(amount: float, account_number: int)
+}
+
+class Transaction {
+  -transaction_id: int
+  -date: date
+  -amount: float
+  -type: string
+  -description: string
+  +getTransactionDetails()
+}
+
+class Employee {
+  -name: string
+  -id: int
+  -username: string
+  -password: string
+  +login()
+  +logout()
+  +createCustomer(name: string, id: int, address: string, phone: string, email: string, username: string, password: string)
+  +deleteCustomer(id: int)
+  +createAccount(account_number: int, balance: float, type: string)
+  +deleteAccount(account_number: int)
+}
+
+class BankingSystem {
+  -customers: Customer[]
+  -accounts: Account[]
+  -transactions: Transaction[]
+  -employees: Employee[]
+  +login(username: string, password: string)
+  +logout()
+}
+
+Customer -> Account : owns
+Account --> Transaction : has
+Employee --> Customer : manages
+Employee --> Account : manages
+BankingSystem --> Employee : has
+BankingSystem --> Customer : has
+BankingSystem --> Account : has
+BankingSystem --> Transaction : has
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+title XYZ Banking System Process View
+
+|Main|
+start
+:Customer initiates transaction;
+|Transaction|
+if (Valid transaction?)
+  :Process transaction;
+  if (Sufficient funds?)
+    :Debit account;
+    :Credit account;
+  else
+    :Transaction declined - insufficient funds;
+  endif
+else
+  :Transaction declined - invalid transaction;
+endif
+|Main|
+:Provide transaction receipt;
+stop
+@enduml

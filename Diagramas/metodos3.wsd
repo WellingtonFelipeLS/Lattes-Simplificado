@@ -1,0 +1,40 @@
+@startuml "metodos3"
+skinparam classAttributeIconSize 0
+class "FormacaoAcademica" {
+}
+class "Graduacao" {
+}
+class "PosGraducao" {
+}
+class "AreaDePesquisa" {
+}
+class "CtrlFormacaoAcademica" {
+	+cadGrad(Graduacao: grad): bool
+	+editGrad(Graduacao: grad): bool
+	+cadPosGrad(PosGraducao: posGrad): bool
+	+editPosGrad(PosGraducao: posGrad): bool
+	+cadAreaPesq(AreaDePesquisa: areaPesq): bool
+	+editAreaPesq(AreaDePesquisa: areaPesq): bool
+}
+class "FormacaoAcademicaUI" {
+	-formGrad(): void
+	-formPosGrad(): void
+}
+
+class "Premio" {
+}
+class "CtrlPremio" {
+	+cadPremio(Premio: premio): bool
+	+editPremio(Premio: premio): bool
+}
+class "PremioUI" {
+}
+class "ProjetoDePesquisa" {
+}
+class "CtrlProjetoDePesquisa" {
+	+cadProjPesq(ProjetoDePesquisa: projPesq): bool
+	+editProjPesq(ProjetoDePesquisa: projPesq): bool
+}
+class "ProjetoDePesquisaUI" {
+}
+@enduml

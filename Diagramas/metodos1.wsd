@@ -1,0 +1,33 @@
+@startuml "metodos1"
+skinparam classAttributeIconSize 0
+class "Curriculo" {
+	+setResumo(String: resumo): void
+	+gerarCurriculo(): void
+}
+class "CtrlCurriculo" {
+	+cadResumo(String: resumo): bool
+	+editResumo(String: resumo): bool
+}
+class "CurriculoUI" {
+}
+class "Pesquisador"{
+}
+class "EnderecoProfissional" {
+}
+class "CtrlPesquisador" {
+	+cadPesq(Pesquisador: pesq): bool
+	+editPesq(Pesquisador: pesq): bool
+	+cadEndProf(EnderecoProfissional: endProf): bool
+	+editEndProf(EnderecoProfissional: endProf): bool
+}
+class "PesquisadorUI" {
+}
+class "AtuacaoProfissional" {
+}
+class "CtrlAtuacaoProfissional" {
+	+cadAtuacaoProf(AtuacaoProfissional: atuacaoProf): bool
+	+editAtuacaoProf(AtuacaoProfissional: atuacaoProf): bool
+}
+class "AtuacaoProfissionalUI" {
+}
+@enduml

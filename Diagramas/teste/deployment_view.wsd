@@ -1,0 +1,31 @@
+@startuml
+!define WEB_COLORS #lightblue
+!define DB_COLORS #lightgreen
+!define LB_COLORS #FFA500
+
+!define WEB(x) [**Web Server**\n#x|+HTTP Server\n+Application Server]
+!define DB(x) [**Database Server**\n#x|+Database Engine]
+!define LB(x) [**Load Balancer**\n#x|+Load Balancing]
+
+title Deployment View for XYZ Banking System
+
+node "Web Server" {
+  WEB(1) --> DB(1) : JDBC
+  WEB(1) --> DB(2) : JDBC
+  WEB(2) --> DB(1) : JDBC
+  WEB(2) --> DB(2) : JDBC
+  WEB(3) --> DB(3) : JDBC
+}
+
+node "Database Server" {
+  DB(1) ..> DB(2) : Database Replication
+  DB(1) ..> DB(3) : Database Replication
+}
+
+node "Load Balancer" {
+  LB(1) --> WEB(1)
+  LB(1) --> WEB(2)
+  LB(2) --> WEB(3)
+}
+
+@enduml

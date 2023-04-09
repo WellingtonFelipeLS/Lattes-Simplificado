@@ -18,6 +18,12 @@
     alt Graduação
 		uiFA -->> uiFA --: formGrad()
 		uiFA -> contFA: editGrad(grad)
+
+		group Enquanto os dados forem inválidos
+		contFA -->> uiFA: Mensagem de dados inválidos
+		uiFA -> contFA: editGrad(grad)
+		end
+
         contFA -->> GFA ++: <<edit>>
 		GFA -->> contFA --: Graduaçao editada
     else Pós-Graduação   
@@ -25,11 +31,21 @@
 		uiFA -->> uiFA --: formPosGrad()      
 
         uiFA -> contFA : editPosGrad(posGrad)
+
+		group Enquanto os dados forem inválidos
+		contFA -->> uiFA: Mensagem de dados inválidos
+		uiFA -> contFA: editPosGrad(posGrad)
+		end
+
         contFA -->> PGFA ++: <<edit>>
 		PGFA -->> contFA --: Pós-Graduaçao editada
 		contFA -->> uiFA : Mensagem de confirmação
 
 		uiFA -> contFA : editAreaPesq(posGrad)
+		group Enquanto os dados forem inválidos
+		contFA -->> uiFA: Mensagem de dados inválidos
+		uiFA -> contFA: editAreaPesq(areaPesq)
+		end
         contFA -->> APesq ++: <<edit>>
 		APesq -->> contFA --: Área de Pesquisa editada
     end

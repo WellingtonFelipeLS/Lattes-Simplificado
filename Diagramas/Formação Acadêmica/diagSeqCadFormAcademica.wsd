@@ -18,6 +18,10 @@
     alt Graduação
 		uiFA -->> uiFA --: formGrad()
 		uiFA -> contFA: cadGrad(grad)
+		group Enquanto os dados forem inválidos
+		contFA -->> uiFA: Mensagem de dados inválidos
+		uiFA -> contFA: cadGrad(grad)
+		end
         contFA -->> GFA **: <<create>>
 		GFA -->> contFA : Graduaçao criada
     else Pós-Graduação
@@ -25,11 +29,21 @@
 		uiFA -->> uiFA --: formPosGrad()
 
         uiFA -> contFA : cadPosGrad(posGrad)
+
+		group Enquanto os dados forem inválidos
+		contFA -->> uiFA: Mensagem de dados inválidos
+		uiFA -> contFA: cadPosGrad(posGrad)
+		end
+		
         contFA -->> PGFA **: <<create>>
 		PGFA -->> contFA : Pós-Graduaçao criada
 		contFA -->> uiFA : Mensagem de confirmação
 
 		uiFA -> contFA : cadAreaPesq(areaPesq)
+		group Enquanto os dados forem inválidos
+		contFA -->> uiFA: Mensagem de dados inválidos
+		uiFA -> contFA: cadAreaPesq(areaPesq)
+		end
 		contFA -->> APesq **: <<create>>
 		APesq -->> contFA : Área de Atuação criada
     end

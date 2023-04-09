@@ -1,0 +1,24 @@
+@startuml DiagramaEditarOrientacaoAcademica
+title "Diagrama de Sequência: Edição de Orientação Acadêmica"
+hide footbox
+
+actor "Pesquisador" as Pesquisador
+boundary "Tela de Orientação Acadêmica" as UIOrientacaoAcademica
+control "Controle de Orientação Acadêmica" as ControleOrientacaoAcademica
+entity "Orientação Acadêmica" as OrientacaoAcademica
+
+Pesquisador -> UIOrientacaoAcademica++: Solicita a edição
+
+autonumber
+UIOrientacaoAcademica -> ControleOrientacaoAcademica++: editOrienAcad(orienAcad)
+
+group Enquanto os dados forem inválidos
+ControleOrientacaoAcademica -->> UIOrientacaoAcademica: Mensagem de dados inválidos
+UIOrientacaoAcademica -> ControleOrientacaoAcademica: editOrienAcad(orienAcad)
+end
+
+ControleOrientacaoAcademica -->> OrientacaoAcademica ++: <<edit>>
+OrientacaoAcademica -->> ControleOrientacaoAcademica --: Orientação Acadêmica editada
+ControleOrientacaoAcademica -->> UIOrientacaoAcademica --: Mensagem de confirmação
+
+@enduml

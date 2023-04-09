@@ -1,0 +1,43 @@
+@startuml "metodos2"
+skinparam classAttributeIconSize 0
+class "OrientacaoAcademica" {
+}
+class "CtrlOrientacaoAcademica" {
+	+cadOrienAcad(OrientacaoAcademica: orienAcad): bool
+	+editOrienAcad(OrientacaoAcademica: orienAcad): bool
+}
+class "OrientacaoAcademicaUI" {
+}
+class "ProducaoTecnica" {
+}
+class "CtrlProducaoTecnica" {
+	+cadProdTec(ProducaoTecnica: prodTec): bool
+	+editProdTec(ProducaoTecnica: prodTec): bool
+}
+class "ProducaoTecnicaUI" {
+}
+class "ProficienciaIdioma" {
+}
+class "CtrlProficienciaIdioma" {
+	+cadProfIdioma(ProficienciaIdioma: profIdioma): bool
+	+editProfIdioma(ProficienciaIdioma: profIdioma): bool
+}
+class "ProficienciaIdiomaUI" {
+}
+class "ProducaoBibliografica" {
+}
+class "CtrlProducaoBibliografica" {
+	+cadProdBib(ProducaoBibliografica: prodBib): bool
+	+editProdBib(ProducaoBibliografica: prodBib): bool
+}
+class "ProducaoBibliograficaUI" {
+}
+class "LinhaDePesquisa" {
+}
+class "CtrlLinhaDePesquisa" {
+	+cadLinhaPesquisa(LinhaDePesquisa: LinhaDePesquisa): bool
+	+editLinhaPesquisa(LinhaDePesquisa: linhaPesquisa): bool
+}
+class "LinhaDePesquisaUI" {
+}
+@enduml

@@ -1,0 +1,35 @@
+@startuml DiagramaCadastrarDadosPessoais
+title "Diagrama de Sequência: Cadastro de Dados Pessoais"
+hide footbox
+
+actor "Pesquisador" as Pesquisador
+boundary "Tela de Dados Pessoais" as UICadastroPessoal
+control "Controle de Dados Pessoais" as ControlCadastroPessoal
+entity "Pesquisador" as pesq
+entity "Endereço Profissional" as endProf
+
+Pesquisador -> UICadastroPessoal++: Solicita o cadastro
+
+autonumber
+UICadastroPessoal -> ControlCadastroPessoal++: cadPesq(pesq)
+
+group Enquanto os dados forem inválidos
+ControlCadastroPessoal -->> UICadastroPessoal: Mensagem de dados inválidos
+UICadastroPessoal -> ControlCadastroPessoal: cadPesq(pesq)
+end
+
+ControlCadastroPessoal -->> pesq **: <<create>>
+pesq -->> ControlCadastroPessoal: Pesquisador criado 
+ControlCadastroPessoal -->> UICadastroPessoal: Mensagem de confirmação
+
+UICadastroPessoal -> ControlCadastroPessoal: cadEndProf(endProf)
+
+group Enquanto os dados forem inválidos
+ControlCadastroPessoal -->> UICadastroPessoal: Mensagem de dados inválidos
+UICadastroPessoal -> ControlCadastroPessoal: cadEndProf(endProf)
+end
+
+ControlCadastroPessoal -->> endProf **: <<create>>
+endProf -->> ControlCadastroPessoal: Endereço Profissional criado 
+ControlCadastroPessoal -->> UICadastroPessoal: Mensagem de confirmação
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+
+package XYZBankingSystem {
+  
+  component UserInterface #White {
+    interface IAccountManagementUI
+    interface ITransactionUI
+  }
+  
+  component Security #White {
+    interface IAuthenticationService
+    interface IAuthorizationService
+  }
+  
+  component BusinessLogic #White {
+    interface IAccountManagementService
+    interface ITransactionService
+    interface IReportingService
+  }
+  
+  component DataStorage #White {
+    interface IDataAccess
+    database Database
+  }
+  
+  component ExternalServices #White {
+    interface IBankingService
+    interface IEmailService
+  }
+  
+  component Integration #White {
+    interface IIntegrationService
+  }
+  
+  UserInterface -down-> Security
+  Security -down-> BusinessLogic
+  BusinessLogic -down-> DataStorage
+  BusinessLogic -down-> ExternalServices
+  ExternalServices -down-> Integration
+}
+
+@enduml

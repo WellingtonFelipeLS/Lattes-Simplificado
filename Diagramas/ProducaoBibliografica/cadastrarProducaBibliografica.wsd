@@ -14,11 +14,11 @@ UIProducaoBibliografica -> ControleProducaoBibliografica++: cadProdBib(prodBib)
 
 group Enquanto os dados forem inválidos
 ControleProducaoBibliografica -->> UIProducaoBibliografica: Mensagem de dados inválidos
-UIProducaoBibliografica -> ControleProducaoBibliografica --: cadProdBib(prodBib)
+UIProducaoBibliografica -> ControleProducaoBibliografica: cadProdBib(prodBib)
 end
 
 ControleProducaoBibliografica -->> ProducaoBibliografica **: <<create>>
 ProducaoBibliografica -->> ControleProducaoBibliografica: Produção Bibliográfica criada
 ControleProducaoBibliografica -->> UIProducaoBibliografica --: Mensagem de confirmação
-autonumber stop
+
 @enduml

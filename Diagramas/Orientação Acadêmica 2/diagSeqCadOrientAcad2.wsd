@@ -1,0 +1,24 @@
+@startuml DiagramaCadastrarOrientacaoAcademica
+title "Diagrama de Sequência: Cadastro de Orientação Acadêmica"
+hide footbox
+
+actor "Pesquisador" as Pesquisador
+boundary "Tela de Orientação Acadêmica" as UIOrientacaoAcademica
+control "Controle de Orientação Acadêmica" as ControleOrientacaoAcademica
+entity "Orientação Acadêmica" as OrientacaoAcademica
+
+Pesquisador -> UIOrientacaoAcademica++: Solicita o cadastro
+
+autonumber
+UIOrientacaoAcademica -> ControleOrientacaoAcademica++: cadOrienAcad(orienAcad)
+
+group Enquanto os dados forem inválidos
+ControleOrientacaoAcademica -->> UIOrientacaoAcademica: Mensagem de dados inválidos
+UIOrientacaoAcademica -> ControleOrientacaoAcademica: cadOrienAcad(orienAcad)
+end
+
+ControleOrientacaoAcademica -->> OrientacaoAcademica **: <<create>>
+OrientacaoAcademica -->> ControleOrientacaoAcademica: Orientação Acadêmica criada
+ControleOrientacaoAcademica -->> UIOrientacaoAcademica --: Mensagem de confirmação
+
+@enduml

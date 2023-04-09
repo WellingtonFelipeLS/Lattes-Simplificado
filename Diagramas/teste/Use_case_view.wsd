@@ -1,0 +1,31 @@
+@startuml
+left to right direction
+
+actor Customer
+
+rectangle "XYZ Banking System" {
+    usecase "Account Management" as AC
+    usecase "Money Transfer" as MT
+    usecase "Loan Application" as LA
+    usecase "Credit Card Application" as CCA
+
+    Customer --> AC
+    Customer --> MT
+    Customer --> LA
+    Customer --> CCA
+
+    AC --> (View Balance)
+    AC --> (Update Profile)
+    AC --> (Open Account)
+
+    MT --> (Make Transfer)
+    MT --> (Manage Recipients)
+
+    LA --> (Submit Application)
+    LA --> (Check Status)
+
+    CCA --> (Submit Application)
+    CCA --> (Check Status)
+}
+
+@enduml

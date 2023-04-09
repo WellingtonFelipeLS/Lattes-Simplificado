@@ -1,0 +1,35 @@
+@startuml DiagramaCadastrarDadosPessoais
+title "Diagrama de Sequência: Edição de Dados Pessoais"
+hide footbox
+
+actor "Pesquisador" as Pesquisador
+boundary "Tela de Dados Pessoais" as UICadastroPessoal
+control "Controle de Dados Pessoais" as ControlCadastroPessoal
+entity "Pesquisador" as pesq
+entity "Endereço Profissional" as endProf
+
+Pesquisador -> UICadastroPessoal++: Solicita a edição
+
+autonumber
+UICadastroPessoal -> ControlCadastroPessoal++: editPesq(pesq)
+
+group Enquanto os dados forem inválidos
+ControlCadastroPessoal -->> UICadastroPessoal: Mensagem de dados inválidos
+UICadastroPessoal -> ControlCadastroPessoal: editPesq(pesq)
+end
+
+ControlCadastroPessoal -->> pesq ++: <<edit>>
+pesq -->> ControlCadastroPessoal --: Pesquisador criado 
+ControlCadastroPessoal -->> UICadastroPessoal: Mensagem de confirmação
+
+UICadastroPessoal -> ControlCadastroPessoal: editEndProf(endProf)
+
+group Enquanto os dados forem inválidos
+ControlCadastroPessoal -->> UICadastroPessoal: Mensagem de dados inválidos
+UICadastroPessoal -> ControlCadastroPessoal: editEndProf(endProf)
+end
+
+ControlCadastroPessoal -->> endProf ++: <<edit>>
+endProf -->> ControlCadastroPessoal --: Endereço Profissional criado 
+ControlCadastroPessoal -->> UICadastroPessoal: Mensagem de confirmação
+@enduml

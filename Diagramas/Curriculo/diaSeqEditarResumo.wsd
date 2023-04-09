@@ -1,5 +1,5 @@
 @startuml diaSeqEditarResumo
-title "Diagrama de Sequência de Edição do Resumo"
+title "Diagrama de Sequência: Edição do Resumo"
 hide footbox
 
 actor Pesquisador as user

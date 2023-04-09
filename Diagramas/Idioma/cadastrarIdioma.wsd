@@ -1,5 +1,5 @@
 @startuml DiagramaCadastrarIdioma
-title "Diagrama de sequência: Cadastro de Proficiência em Idioma"
+title "Diagrama de Sequência: Cadastro de Proficiência em Idioma"
 hide footbox
 
 actor "Pesquisador" as Pesquisador
