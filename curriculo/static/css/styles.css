@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
+:root{
+    --primary-text-color-black: #2B2B43;
+    --secondary-text-color-gray: #545563;
+    --highlight-color-purple: #4E60FF;
+    --background-color-border: #C7C8D2;
+    --backgpround-color2: #EDEEF2;
+    font-size: 62.5%;
+
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    
+}
+
+body{
+    color: var(--secondary-text-color-black);
+}
+.header {
+ display: flex;
+ border-bottom: 1px solid #EDEEF2 ; 
+ justify-content: space-between;
+ padding: 1rem 4rem;
+ align-items: center;
+}
+header form{
+    color: #555;
+    display: flex;
+    padding: 2px;
+    border: 1px solid var(--background-color-border);
+    border-radius: 1.2rem;
+    background-color: var(--background-color-border) ;
+}
+.header input[type="search"]{
+  
+  background: transparent;
+  margin: 0;
+  padding: .7rem .8rem;
+  font-size: 1.6rem;
+  color: inherit;
+  border: 1px solid transparent;
+}
+
+.header span{
+ color: var(--highlight-color-purple);
+ line-height: -150px;
+}
+.header button[type="submit"] {
+    text-indent: -999px;
+    overflow: hidden;
+    width: 4rem;
+    padding: 0;
+    margin: 0;
+    border: 1px solid transparent;
+    border-radius: inherit;
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+ 
+  .header button[type="submit"]:hover {
+    opacity: 1;
+  }
+
+  .header button[type="submit"]:focus,
+  .header input[type="search"]:focus {
+    box-shadow: 0 0 3px 0 #1183d6;
+    border-color: #1183d6;
+    outline: none;
+  }
+
+ .header a{
+    text-decoration: none;
+    color: var(--primary-text-color-black);
+    font-size: 1.6rem;
+    padding: 1rem;
+ }
+ .header a:hover{
+    color: var(--backgpround-color2);
+ }
+
+.container{
+    max-width: 736px;
+    width: 100%;
+    margin: 1rem auto 0;
+}
+.container h1{
+    font-size: 2rem;
+    margin-bottom: 1.4rem;
+    padding-left: .4rem;
+
+}
+.wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr  ;
+    column-gap: 2.8rem;
+   
+}
+
+fieldset{
+    border: 1px solid #EDEEF2;
+    border-radius: 1.6rem;
+    padding: 1.5rem;
+    margin-bottom: 3.4rem;
+ 
+}
+fieldset h2{
+    font-size: 1.8rem;
+}
+fieldset .input-block{
+ display: flex;
+ flex-direction: column;
+
+}
+fieldset .input-block.input-block-btn{
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+fieldset .input-block label{
+    color: var(--secondary-text-color-gray);
+    font-size: 1.2rem;
+    padding: 1rem 0;
+}
+fieldset .input-block input,textarea{
+  border: 1px solid var(--background-color-border);
+  border-radius: .8rem;
+  font-size: 1.6rem;
+  padding: 1rem;
+  outline-color: var(--highlight-color-purple);
+}
+fieldset .input-block textarea{
+ resize: none;
+}
+fieldset .input-block input[type="button"]{
+    background-color: var(--highlight-color-purple);
+    color: #FFF;
+    font-size: 1.4rem;
+    font-weight: bold;
+    width: fit-content;
+    margin-top: 2rem;
+    align-self: flex-end;
+    border: 1px solid var(--highlight-color-purple);
+    box-shadow: 0px 8px 20px #4e60ff29;
+    cursor: pointer;
+    
+    
+}
+fieldset > .input-block:last-child{
+    margin-top: .8rem;
+    border-top: 1px solid var(--background-color-border);
+}
+
+
+
+fieldset .input-block.input-block-btn #btn-gerar{
+    background-color: #FFF;
+    color: #83859C;
+    margin-right: 2.4rem;
+    border: 1px solid var(--background-color-border);
+    box-shadow:none
+}
+fieldset .input-block.input-block-btn #btn-gerar:hover{
+    background-color: #C7C8D2;
+    color: #FFF;
+    cursor: pointer;
+}

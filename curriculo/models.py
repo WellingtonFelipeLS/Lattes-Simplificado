@@ -81,6 +81,7 @@ class Pesquisador(models.Model):
     nome = models.CharField(max_length=200)
     endereco = models.OneToOneField(EnderecoProfissional,on_delete=models.CASCADE)
     cpf = models.CharField(max_length=11)
+    telefone = models.CharField(max_length=11)
     email = models.EmailField()
     foto = models.TextField()
 

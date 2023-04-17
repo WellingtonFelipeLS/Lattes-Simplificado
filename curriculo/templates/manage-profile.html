@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <h1>Currículo</br><span>Lattes</span></h1>
+        <div>
+            <a href="#">Editar perfil</a>
+            <a href="#">Sair</a>
+        </div>
+    </header>
+    <section class="container">
+        <h1>Dados</h1>
+        <form method="POST">
+			{% csrf_token %}
+
+            <fieldset>
+                <h2>Imagem</h2>
+                <div class="input-block avatar">
+                    <div class="image-perfil"></div>
+                    <input type="file" value="Alterar" name="image-perfil" id="image-perfil">
+                    <input type="button" />
+                </div>
+                <div class="input-block">
+					{{ form.nome.errors }}
+                    <label for="nome-completo">Nome completo</label>
+					{{ form.nome }}
+                </div>
+               <div class="wrapper">
+                <div class="input-block">
+                    <label for="email">Email</label>
+                    <input type="email" name="emial" id="email">
+                </div>
+                <div class="input-block">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" name="telefone" id="telefone">
+                </div>
+               </div>
+                <div class="input-block">
+                    <label for="lagradouro">CPF (não será visível)</label>
+                    <input type="text" name="lagradouro" id="lagradouro" />
+                </div>
+                <div class="input-block">
+                    <label for="apresentcao">Resumo</label>
+                    <textarea name="apresentcao" id="apresentcao"></textarea>
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Endereço profissional</h2>
+                <div class="input-block">
+                    <label for="lagradouro">Lagradouro</label>
+                    <input type="text" name="lagradouro" id="lagradouro">
+                </div>
+               <div class="wrapper">
+                    <div class="input-block">
+                        <label for="bairro">Bairro</label>
+                        <input type="text"  name="bairro" id="bairro">
+                    </div>
+                    <div class="input-block">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" name="cidade" id="cidade">
+                    </div>
+               </div>
+              <div class="wrapper">
+                <div class="input-block">
+                    <label for="cep">Cep</label>
+                    <input type="text" name="cep" id="cep">
+                </div>
+                <div class="input-block">
+                    <label for="estado">Estado</label>
+                    <input type="text" name="estado" id="estado">
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+                <h2>Formação acadêmica</h2>
+                <div class="input-block">
+                    <label for="tipo">Tipo</label>
+                    <input type="text" name="tipo" id="tipo">
+                </div>
+                <div class="input-block">
+                    <label for="nome-formacao">Nome</label>
+                    <input type="text" name="nome-formacao" id="nome-formacao">
+                </div>
+                <div class="input-block">
+                    <label for="formacao-ano-ini">Ano de início</label>
+                    <input type="text" name="formacao-ano-ini" id="formacao-ano-ini">
+                </div>
+                <div class="input-block">
+                    <label for="formacao-ano-fin">Ano de término</label>
+                    <input type="text" name="formacao-ano-fin" id="formacao-ano-fin">
+                </div>
+                <div class="input-block">
+                    <label for="nota">Nota de conclusão</label>
+                    <input type="text" name="nota" id="nota">
+                </div>
+                <div class="input-block">
+                    <label for="instituicao">Instituição</label>
+                    <input type="text" name="instituicao" id="instituicao">
+                </div>
+                <div class="input-block">
+                    <label for="titulo-formacao">Título</label>
+                    <input type="text" name="titulo-formacao" id="titulo-formacao">
+                </div>
+                <div class="input-block">
+                    <label for="palavra-chave">Palavras-chave</label>
+                    <input type="text" name="palavra-chave" id="palavra-chave">
+                </div>
+                <div class="input-block">
+                    <label for="orientador-formacao">Orientador</label>
+                    <input type="text" name="orientador-formacao" id="orientador-formacao">
+                </div>
+                <div class="input-block">                    
+                    <input type="button" value="Adicionar nova formação" name="addFormacao" id="addFormacao">
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Atuação profissional</h2>
+                <div class="input-block">
+                    <label for="vinculo">Vínculo</label>
+                    <input type="text" name="vinculo" id="vinculo">
+                </div>
+                <div class="input-block">
+                    <label for="trabalho-dt-ini">Ano de início</label>
+                    <input type="text" name="trabalho-dt-ini" id="trabalho-dt-ini">
+                </div>
+                <div class="input-block">
+                    <label for="trabalho-dt-fin">Ano de término</label>
+                    <input type="text" name="trabalho-dt-fin" id="trabalho-dt-fin">
+                </div>
+                <div class="input-block">
+                    <label for="instituicao">Instituição</label>
+                    <input type="text" name="instituicao" id="instituicao">
+                </div>
+                <div class="input-block">
+                    <label for="estado">EnquadProfissional</label>
+                    <input type="text" name="estado" id="estado">
+                </div>
+                <div class="input-block">
+                    <label for="regime">Regime</label>
+                    <input type="text" name="regime" id="regime">
+                </div>
+                <div class="input-block">                    
+                    <input type="button" value="Adicionar atuação profissional" name="addAtProfisional" id="addAtProfisional">
+                </div>
+                
+            </fieldset>
+            <fieldset>
+                <h2>Linhas de pesquisa</h2>
+                <div class="input-block">
+                    <label for="linha-de-pesquisa">Linha de Pesquisa</label>
+                    <input type="text" name="linha-de-pesquisa" id="linha-de-pesquisa">
+                </div>
+                <div class="input-block">                    
+                    <input type="button" value="Adicionar linha de pesquisa" name="addAtProfisional" id="addAtProfisional">
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Projetos de pesquisa</h2>
+                <div class="input-block">
+                    <label for="projeto-titulo">Título</label>
+                    <input type="text" name="projeto-titulo" id="projeto-titulo">
+                </div>
+                <div class="input-block">
+                    <label for="projeto-dt-ini">Ano de início</label>
+                    <input type="text" name="projeto-dt-ini" id="projeto-dt-ini">
+                </div>
+                <div class="input-block">
+                    <label for="projeto-dt-fin">Ano de término</label>
+                    <input type="text" name="projeto-dt-fin" id="projeto-dt-fin">
+                </div>
+                <div class="input-block">
+                    <label for="integrantes">Integrantes</label>
+                    <input type="text" name="integrantes" id="integrantes">
+                </div>
+                <div class="input-block">
+                    <label for="situacao">Situação</label>
+                    <input type="text" name="situacao" id="situacao">
+                </div>
+                <div class="input-block">
+                    <label for="projeto-descricao">Descrição</label>
+                    <textarea type="text" name="projeto-descricao" id="projeto-descricao"></textarea>
+                </div>
+                <div class="input-block">                    
+                    <input type="button" value="Adicionar projeto de pesquisa" name="addAtProfisional" id="addAtProfisional">
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Idiomas</h2>
+                <div class="input-block">
+                    <label for="idioma">Idioma</label>
+                    <input type="text" name="idioma" id="idioma">
+                </div>
+                <div class="wrapper">
+                    <div class="input-block">
+                        <label for="compreende">Compreende</label>
+                        <input type="text" name="compreende" id="compreende">
+                    </div>
+                    <div class="input-block">
+                        <label for="fala">Fala</label>
+                        <input type="text" name="fala" id="fala">
+                    </div>
+                </div>
+                <div class="wrapper">
+                    <div class="input-block">
+                        <label for="le">Lê</label>
+                        <input type="text" name="le" id="le">
+                    </div>
+                    <div class="input-block">
+                        <label for="escreve">Escreve</label>
+                        <input type="text" name="escreve" id="escreve">
+                    </div>
+                </div>
+                <div class="input-block">                    
+                    <input type="button" value="Adicionar Idioma" name="addIdioma" id="addIdioma">
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Prêmios e títulos</h2>
+                <div class="input-block">
+                    <label for="premio-titulo">Nome</label>
+                    <input type="text" name="nome-titulo" id="nome-titulo">
+                </div>
+                <div class="input-block">
+                    <label for="premio-ano">Ano</label>
+                    <input type="text" name="nome-titulo" id="nome-titulo">
+                </div>
+                <div class="input-block">                    
+                    <input type="button" value="Adicionar prêmio" name="addIdioma" id="addIdioma">
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Orientações acadêmicas</h2>
+                <div class="input-block">
+                    <label for="orientacao-orientando">Orientando</label>
+                    <input type="text" name="orientacao-orientando" id="orientacao-orientando">
+                </div>
+                <div class="input-block">
+                    <label for="orientacao-instituicao">Instituição</label>
+                    <input type="text" name="orientacao-instituicao" id="orientacao-instituicao">
+                </div>
+                <div class="input-block">
+                    <label for="orientacao-descricao">Descrição</label>
+                    <input type="text" name="orientacao-descricao" id="orientacao-descricao">
+                </div>
+                <div class="input-block">
+                    <label for="orientacao-tipo">Tipo de orientação</label>
+                    <input type="text" name="orientacao-tipo" id="orientacao-tipo">
+                </div>
+                <div class="input-block">                    
+                    <input type="button" value="Adicionar orientação acadêmica" name="addOrintacao" id="addOrintacao">
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Produção bibliográfica</h2>
+                <div class="input-block">
+                    <label for="prod-biblig-titulo">Título</label>
+                    <input type="text" name="prod-biblig-titulo" id="prod-biblig-titulo">
+                </div>
+                <div class="input-block">
+                    <label for="prod-biblig-autores">Autores</label>
+                    <input type="text" name="prod-biblig-autores" id="prod-biblig-autores">
+                </div>
+               <div class="wrapper">
+                <div class="input-block">
+                    <label for="prod-biblig-edicao">Edição</label>
+                    <input type="text" name="prod-biblig-edicao" id="prod-biblig-edicao">
+                </div>
+                <div class="input-block">
+                    <label for="prod-biblig-ano">Ano</label>
+                    <input type="text" name="prod-biblig-ano" id="prod-biblig-ano">
+                </div>
+               </div>
+                <div class="input-block">
+                    <label for="prod-biblig-pagina-ini">Página inicial</label>
+                    <input type="text" name="prod-biblig-pagina-ini" id="prod-biblig-pagina-ini">
+                </div>
+                <div class="input-block">
+                    <label for="prod-biblig-pag-fin">Página final</label>
+                    <input type="text" name="prod-biblig-pag-fin" id="prod-biblig-pag-fin">
+                </div>
+                <div class="input-block">                    
+                    <input type="button" value="Adicionar produção bibliográfica" name="addIdioma" id="addIdioma">
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Produção técnica</h2>
+                <div class="input-block">
+                    <label for="prod-titulo">Título</label>
+                    <input type="text" name="prod-titulo" id="prod-titulo">
+                </div>
+                <div class="input-block">
+                    <label for="prod-autores">Autores</label>
+                    <input type="text" name="prod-autores" id="prod-autores">
+                </div>
+                <div class="input-block">
+                    <label for="prod-ano">Ano</label>
+                    <input type="text" name="prod-ano" id="prod-ano">
+                </div>
+                <div class="input-block">                    
+                    <input type="button" value="Adicionar produção técnica" name="addIdioma" id="addIdioma">
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>Finalizar edição</h2>
+                <div class="input-block  input-block-btn ">
+                    <input type="button" value="Gerar currículo"  name="btn-gerar" id="btn-gerar"/>
+                    <input type="submit" value="Salvar Dados" name="btn-salvar" id="btn-salvar"/>
+                </div>
+            </fieldset>
+        </form>
+
+    </section>
+</body>
+</html>

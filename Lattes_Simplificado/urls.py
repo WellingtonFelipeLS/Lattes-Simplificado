@@ -22,7 +22,6 @@ from curriculo.views import home, register_request, login_request
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name="home"),
     path('register', register_request, name='register'),
     path("login", login_request, name="login")
 ]

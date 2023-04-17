@@ -1,10 +1,11 @@
-from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import ModelForm, EmailField
+from .models import Pesquisador
 
 
 class NewUserForm(UserCreationForm):
-	email = forms.EmailField(required=True)
+	email = EmailField(required=True)
 
 	class Meta:
 		model = User
@@ -16,3 +17,8 @@ class NewUserForm(UserCreationForm):
 		if commit:
 			user.save()
 		return user
+
+class PesquisadorForm(ModelForm):
+    class Meta:
+        model = Pesquisador
+        fields = ["nome", "email", "telefone", "cpf"]
