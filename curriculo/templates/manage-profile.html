@@ -36,17 +36,20 @@
                 </div>
                <div class="wrapper">
                 <div class="input-block">
-                    <label for="email">Email</label>
-                    <input type="email" name="emial" id="email">
+                    {{ form.email.errors }}
+					<label for="email">Email</label>
+                   	{{ form.email }}
                 </div>
                 <div class="input-block">
+					{{ form.telefone.errors }}
                     <label for="telefone">Telefone</label>
-                    <input type="tel" name="telefone" id="telefone">
+					{{ form.telefone }}
                 </div>
                </div>
                 <div class="input-block">
-                    <label for="lagradouro">CPF (não será visível)</label>
-                    <input type="text" name="lagradouro" id="lagradouro" />
+                    {{ form.cpf.errors }}
+					<label for="cpf">CPF (não será visível)</label>
+                    {{ form.cpf }}
                 </div>
                 <div class="input-block">
                     <label for="apresentcao">Resumo</label>
@@ -312,7 +315,9 @@
             <fieldset>
                 <h2>Finalizar edição</h2>
                 <div class="input-block  input-block-btn ">
-                    <input type="button" value="Gerar currículo"  name="btn-gerar" id="btn-gerar"/>
+                    <input type="button" value="Gerar currículo"  name="btn-gerar" id="btn-gerar">
+						<a href="{% url 'curriculo' %}"></a>
+					</input>
                     <input type="submit" value="Salvar Dados" name="btn-salvar" id="btn-salvar"/>
                 </div>
             </fieldset>
