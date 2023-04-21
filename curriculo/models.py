@@ -1,16 +1,23 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+class Curriculo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    resumo = models.TextField()
 
 class Premio(models.Model):
     ano = models.IntegerField()
     descricao = models.TextField()
+    curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.ano)
 
 class LinhaPesquisa(models.Model):
     detalhamento = models.TextField()
+    curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.detalhamento
     
     class Meta:
@@ -23,17 +30,23 @@ class ProducaoBibliografica(models.Model):
     pagina_final = models.IntegerField()
     edicao = models.CharField(max_length=100)
     ano = models.IntegerField()
+    curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.titulo
 
-# 0 - Pouco, 1 - Razoalvemente, 2 - Bem
 class ProeficienciaIdioma(models.Model):
+    NivelProeficiencia = (
+        (0, "Pouco"),
+        (1, "Razoavelmente"),
+        (2, "Bem")
+    )
     idioma = models.CharField(max_length=100)
     compreensao = models.IntegerField()
-    fala = models.IntegerField()
-    escrita = models.IntegerField()
-    leitura = models.IntegerField()
+    fala = models.IntegerField(choices=NivelProeficiencia)
+    escrita = models.IntegerField(choices=NivelProeficiencia)
+    leitura = models.IntegerField(choices=NivelProeficiencia)
+    curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.idioma
@@ -42,28 +55,36 @@ class ProducaoTecnica(models.Model):
     titulo = models.CharField(max_length=300)
     autores = models.TextField()
     ano = models.IntegerField()
+    curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.titulo
 
-# 0 - Iniciação Científica, 1 - TCC
-# 2 - Mestrado, 3 - Doutorado, 4 - Pos-doutorado
 class OrientacaoAcademica(models.Model):
+    TipoOrientacao = (
+        (0, "Iniciação Científica"),
+        (1, "TCC"),
+        (2, "Mestrado"),
+        (3, "Doutorado"),
+        (4, "Pós-Doutorado")
+    )
     orientando = models.CharField(max_length=200)
-    tipo = models.IntegerField()
+    tipo = models.IntegerField(choices=TipoOrientacao)
     instituicao = models.CharField(max_length=300)
     descricao = models.TextField()
+    curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.instituicao
 
 class AtuacaoProfissional(models.Model):
-    ano_inicio = models.IntegerField()
-    ano_termino = models.IntegerField()
+    ano_de_inicio = models.IntegerField()
+    ano_de_termino = models.IntegerField()
     instituicao = models.CharField(max_length=300)
     vinculo = models.CharField(max_length=100)
     enquad_profissional = models.CharField(max_length=200)
     regime = models.CharField(max_length=100)
+    curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.enquad_profissional
@@ -78,6 +99,7 @@ class EnderecoProfissional(models.Model):
         return self.logradouro
 
 class Pesquisador(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     nome = models.CharField(max_length=200)
     endereco = models.OneToOneField(EnderecoProfissional,on_delete=models.CASCADE)
     cpf = models.CharField(max_length=11)
@@ -88,11 +110,21 @@ class Pesquisador(models.Model):
     def __str__(self):
         return self.nome
 
-class Graduacao(models.Model):
+class FormacaoAcademica(models.Model):
+    ano_de_inicio = models.IntegerField()
+    ano_de_termino = models.IntegerField()
+    nome = models.CharField(max_length=200)
+    instituicao = models.TextField()
+    curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
+    
+    class Meta:
+        abstract = True
+
+class Graduacao(FormacaoAcademica):
     titulo = models.CharField(max_length=200)
     orientador = models.CharField(max_length=200)
-    notaConclusao = models.FloatField()
-    palavrasChave = models.CharField(max_length=500)
+    nota_conclusao = models.FloatField()
+    palavras_chave = models.CharField(max_length=500)
 
     def __str__(self):
         return self.titulo
@@ -103,13 +135,14 @@ class AreaPesquisa(models.Model):
     sub_area = models.CharField(max_length=200)
     especialidade_area = models.CharField(max_length=200)
 
-class PosGraduacao(models.Model):
+class PosGraduacao(FormacaoAcademica):
     titulo = models.CharField(max_length=200)
     orientador = models.CharField(max_length=200)
-    palavrasChave = models.CharField(max_length=500)
-    area_pesquisa = models.ForeignKey(
+    palavras_chave = models.CharField(max_length=500)
+    area_de_pesquisa = models.ForeignKey(
         AreaPesquisa,
         on_delete=models.CASCADE)
+    curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.titulo
@@ -117,60 +150,14 @@ class PosGraduacao(models.Model):
 class ProjetoPesquisa(models.Model):
     integrantes = models.TextField()
     titulo = models.CharField(max_length=200)
-    ano_inicio = models.IntegerField()
-    ano_termino = models.IntegerField()
+    ano_de_inicio = models.IntegerField()
+    ano_de_termino = models.IntegerField()
     descricao = models.TextField()
     situacao = models.CharField(max_length=100)
+    curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.titulo
     
     class Meta:
-        verbose_name_plural = "Prrojetos de Pesquisa"
-
-
-class Curriculo(models.Model):
-    premios = models.ForeignKey(
-        Premio,
-        on_delete=models.CASCADE
-    )
-    producoesBibliograficas = models.ForeignKey(
-        ProducaoBibliografica,
-        on_delete=models.CASCADE
-    )
-    proficienciaIdiomas = models.ForeignKey(
-        ProeficienciaIdioma,
-        on_delete=models.CASCADE
-    )
-    producoesTecnicas = models.ForeignKey(
-        ProducaoTecnica,
-        on_delete=models.CASCADE
-    )
-    orientacoesAcademicas = models.ForeignKey(
-        OrientacaoAcademica,
-        on_delete=models.CASCADE
-    )
-    graduacoes = models.ForeignKey(
-        Graduacao,
-        on_delete=models.CASCADE
-    )
-    pos_graduacoes = models.ForeignKey(
-        PosGraduacao,
-        on_delete=models.CASCADE
-    )
-    atuacoes_profissionais = models.ForeignKey(
-        AtuacaoProfissional,
-        on_delete=models.CASCADE
-    )
-    graduacoes = models.ForeignKey(
-        Graduacao,
-        on_delete=models.CASCADE
-    )
-    projeto_pesquisa = models.ForeignKey(
-        ProjetoPesquisa,
-        on_delete=models.CASCADE
-    )
-    pesquisador = models.OneToOneField(
-        Pesquisador,
-        on_delete=models.CASCADE
-    )
+        verbose_name_plural = "Projetos de Pesquisa"

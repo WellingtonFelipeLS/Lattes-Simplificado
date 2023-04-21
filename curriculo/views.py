@@ -1,11 +1,16 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from .forms import NewUserForm, PesquisadorForm
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .models import Pesquisador
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
+from django.db.models import signals
+from django.dispatch import receiver
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+
+from .forms import CurriculoForm, NewUserForm, PesquisadorForm
+from .models import Curriculo, EnderecoProfissional, Pesquisador
+
 
 def curriculo(request):
     pesquisador = Pesquisador.objects.get(id=2)
@@ -18,7 +23,16 @@ def curriculo(request):
                 "estado": endereco.estado}
     return render(request, 'teste.html', context)
 
-@login_required
+
+@receiver(signals.post_save, sender = User)
+def create_curriculo_e_pesquisador(sender, instance, created, *args, **kwargs):
+    if created:
+        endereco = EnderecoProfissional.objects.create()
+        Pesquisador.objects.create(user=instance, endereco=endereco)  
+        Curriculo.objects.create(user=instance)
+
+
+'''@login_required
 def manage_curriculo(request, id):
     pesquisador = Pesquisador.objects.get(id=id)
     form = PesquisadorForm(request.POST or None, instance=pesquisador)
@@ -29,8 +43,20 @@ def manage_curriculo(request, id):
         else:
             return HttpResponse('INVÁLIDO')
 
-    return render(request, "manage-profile.html", context={"form": form})
+    return render(request, "manage-profile.html", context={"form": form})'''
 
+@login_required
+def manage_curriculo(request, id):
+    curriculo = Curriculo.objects.get(user=id)
+    form = CurriculoForm(request.POST or None, instance=curriculo)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('manage', id)
+        else:
+            return HttpResponse('INVÁLIDO')
+
+    return render(request, "manage-profile.html", context={"form": form})
 
 def home(request):
     return render(request, 'home.html')
