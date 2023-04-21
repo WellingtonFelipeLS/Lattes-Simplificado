@@ -8,7 +8,7 @@ from django.dispatch import receiver
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from .forms import CurriculoForm, NewUserForm, PesquisadorForm
+from .forms import *
 from .models import Curriculo, EnderecoProfissional, Pesquisador
 
 
@@ -47,16 +47,32 @@ def manage_curriculo(request, id):
 
 @login_required
 def manage_curriculo(request, id):
-    curriculo = Curriculo.objects.get(user=id)
-    form = CurriculoForm(request.POST or None, instance=curriculo)
+    context = {
+        'curriculo_form': CurriculoForm(request.POST or None, instance=Curriculo.objects.get(user=id)),
+		'premio_form':PremioForm(request.POST or None),
+		'linha_pesquisa_form': LinhaPesquisaForm(request.POST or None),
+		'producao_bibliografica_form': ProducaoBibliograficaForm(request.POST or None),
+		'proeficiencia_idioma_form': ProeficienciaIdiomaForm(request.POST or None),
+		'producao_tecnica_form': ProducaoTecnicaForm(request.POST or None),
+		'orientacao_academica_form': OrientacaoAcademicaForm(request.POST or None),
+		'atuacao_profissional_form': AtuacaoProfissionalForm(request.POST or None),
+		'pesquisador_form': PesquisadorForm(request.POST or None, instance=Pesquisador.objects.get(user=id)),
+		'graduacao_form': GraduacaoForm(request.POST or None),
+		'area_pesquisa_form': AreaPesquisaForm(request.POST or None),
+		'posgraduacao_form': PosGraduacaoForm(request.POST or None),
+		'projeto_pesquisa_form': ProjetoPesquisaForm(request.POST or None)
+	}
+    
+    #endereco_profissional_form = EnderecoProfissionalForm(request.POST or None)
     if request.method == "POST":
-        if form.is_valid():
-            form.save()
+        if all(form.is_valid() for form in context.values()):
+            for form in context:
+                form.save()
             return redirect('manage', id)
         else:
             return HttpResponse('INVÁLIDO')
 
-    return render(request, "manage-profile.html", context={"form": form})
+    return render(request, "manage-profile.html", context)
 
 def home(request):
     return render(request, 'home.html')
