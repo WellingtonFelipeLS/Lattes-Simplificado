@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <title>Document</title>
+	<link rel="stylesheet" href="{% static 'css/collapse.css' %}">
+    <title>Lattes Simplificado</title>
 </head>
 <body>
     <header class="header">
@@ -18,17 +19,17 @@
         </div>
     </header>
     <section class="container">
-        <h1>Dados</h1>
         <form method="POST">
 			{% csrf_token %}
-
             <fieldset>
-                <h2>Imagem</h2>
+                <h1>Imagem</h1>
                 <div class="input-block avatar">
                     <div class="image-perfil"></div>
                     <input type="file" value="Alterar" name="image-perfil" id="image-perfil">
-                    <input type="button" />
+					{{ pesquisador_form.foto }}
+                    <input type="submit" value="Salvar Foto" name="salvar_foto" id="btn-salvar-foto"/>
                 </div>
+				<h1 id="dados-pessoais">Dados Pessoais</h1>
                 <div class="input-block">
 					{{ pesquisador_form.nome.errors }}
                     <label for="nome-completo">Nome completo</label>
@@ -52,30 +53,37 @@
                     {{ pesquisador_form.cpf }}
                 </div>
                 <div class="input-block">
-                    <label for="apresentcao">Resumo</label>
-                    <textarea name="apresentcao" id="apresentcao"></textarea>
+                    {{ curriculo_form.resumo.errors }}
+                    <label for="resumo">Resumo</label>
+                    {{ curriculo_form.resumo }}
                 </div>
-            </fieldset>
-            <fieldset>
+				
                 <h2>Endereço profissional</h2>
                 <div class="input-block">
+                    {{ endereco_form.logradouro.errors }}
                     <label for="lagradouro">Lagradouro</label>
-                    <input type="text" name="lagradouro" id="lagradouro">
+                    {{ endereco_form.logradouro }}
                 </div>
 				<div class="input-block">
+					{{ endereco_form.bairro.errors }}
 					<label for="bairro">Bairro</label>
-					<input type="text"  name="bairro" id="bairro">
+                    {{ endereco_form.bairro }}
 				</div>
-              <div class="wrapper">
+				<div class="wrapper">
+					<div class="input-block">
+						{{ endereco_form.cidade.errors }}
+						<label for="cidade">Cidade</label>
+						{{ endereco_form.cidade }}
+					</div>
+					<div class="input-block">
+						{{ endereco_form.estado.errors }}
+						<label for="estado">Estado</label>
+						{{ endereco_form.estado }}
+					</div>
+				</div>
 				<div class="input-block">
-					<label for="cidade">Cidade</label>
-					<input type="text" name="cidade" id="cidade">
+					<input type="submit" value="Salvar Dados" name="salvar_dados_pessoais" id="btn-salvar"/>
 				</div>
-                <div class="input-block">
-                    <label for="estado">Estado</label>
-                    <input type="text" name="estado" id="estado">
-                </div>
-              </div>
             </fieldset>
             <fieldset>
                 <h2>Formação acadêmica</h2>
@@ -138,8 +146,8 @@
                     <input type="text" name="instituicao" id="instituicao">
                 </div>
                 <div class="input-block">
-                    <label for="estado">EnquadProfissional</label>
-                    <input type="text" name="estado" id="estado">
+                    <label for="enquad">Enquadramento Profissional</label>
+                    <input type="text" name="enquad" id="enquad">
                 </div>
                 <div class="input-block">
                     <label for="regime">Regime</label>
@@ -151,14 +159,25 @@
                 
             </fieldset>
             <fieldset>
-                <h2>Linhas de pesquisa</h2>
+                <h2 id="linha-de-pesquisa">Linhas de pesquisa</h2>
                 <div class="input-block">
-                    <label for="linha-de-pesquisa">Linha de Pesquisa</label>
-                    <input type="text" name="linha-de-pesquisa" id="linha-de-pesquisa">
+					{{ linha_pesquisa_form.management_form}}
+					{% for hidden in linha_pesquisa_form.hidden_fields %}
+						{{ hidden }}
+					{% endfor %}
+					{% for detalhamento in linha_pesquisa_form %}
+						{{ detalhamento.errors }}
+						{{ detalhamento }}
+					{% endfor %}
                 </div>
-                <div class="input-block">                    
-                    <input type="button" value="Adicionar linha de pesquisa" name="addAtProfisional" id="addAtProfisional">
-                </div>
+				<div class="wrapper">
+					<div class="input-block">                    
+						<input type="submit" value="Adicionar linha de pesquisa" name="add_linha_pesq" id="add_linha_pesq">
+					</div>
+					<div class="input-block">                    
+						<input type="submit" value="Salvar linha de pesquisa" name="save_linha_pesq" id="save_linha_pesq">
+					</div>
+				</div>
             </fieldset>
             <fieldset>
                 <h2>Projetos de pesquisa</h2>
@@ -191,34 +210,32 @@
                 </div>
             </fieldset>
             <fieldset>
-                <h2>Idiomas</h2>
-                <div class="input-block">
-                    <label for="idioma">Idioma</label>
-                    <input type="text" name="idioma" id="idioma">
-                </div>
-                <div class="wrapper">
-                    <div class="input-block">
-                        <label for="compreende">Compreende</label>
-                        <input type="text" name="compreende" id="compreende">
-                    </div>
-                    <div class="input-block">
-                        <label for="fala">Fala</label>
-                        <input type="text" name="fala" id="fala">
-                    </div>
-                </div>
-                <div class="wrapper">
-                    <div class="input-block">
-                        <label for="le">Lê</label>
-                        <input type="text" name="le" id="le">
-                    </div>
-                    <div class="input-block">
-                        <label for="escreve">Escreve</label>
-                        <input type="text" name="escreve" id="escreve">
-                    </div>
-                </div>
-                <div class="input-block">                    
-                    <input type="button" value="Adicionar Idioma" name="addIdioma" id="addIdioma">
-                </div>
+                <h2 id="proeficiencia_idioma">Idiomas</h2>
+				<div class="input-block">
+				{{ proeficiencia_idioma_form.management_form}}
+				{% for hidden in proeficiencia_idioma_form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+				{% for form_idioma in proeficiencia_idioma_form %}
+				<section class="accordion">
+					<input type="checkbox" name="collapse" id="handle{{ forloop.counter }}">
+					<h2 class="handle">
+					  <label for="handle{{ forloop.counter }}">Idioma {{ forloop.counter }}</label>
+					</h2>
+					<div class="content">
+						{{ form_idioma.errors }}
+						{{ form_idioma }}
+					</div>
+				</section>
+				{% endfor %}
+				<div class="wrapper">
+					<div class="input-block">                    
+						<input type="submit" value="Adicionar Idioma" name="add_idioma" id="add_idioma">
+					</div>
+					<div class="input-block">                    
+						<input type="submit" value="Salvar Idioma" name="save_idioma" id="save_idioma">
+					</div>
+				</div>
             </fieldset>
             <fieldset>
                 <h2>Prêmios e títulos</h2>
@@ -306,17 +323,13 @@
                     <input type="button" value="Adicionar produção técnica" name="addIdioma" id="addIdioma">
                 </div>
             </fieldset>
-            <fieldset>
-                <h2>Finalizar edição</h2>
-                <div class="input-block  input-block-btn ">
-                    <input type="button" value="Gerar currículo"  name="btn-gerar" id="btn-gerar">
-						<a href="{% url 'curriculo' %}"></a>
-					</input>
-                    <input type="submit" value="Salvar Dados" name="btn-salvar" id="btn-salvar"/>
-                </div>
-            </fieldset>
+			<fieldset>
+				<div class="input-block">
+					<input type="submit" value="Gerar currículo" name="btn-gerar" id="btn-gerar"></input>
+				</div>
+			</fieldset>
         </form>
-
+		
     </section>
 </body>
 </html>

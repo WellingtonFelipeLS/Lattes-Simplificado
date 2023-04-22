@@ -14,7 +14,7 @@ class Premio(models.Model):
         return str(self.ano)
 
 class LinhaPesquisa(models.Model):
-    detalhamento = models.TextField()
+    detalhamento = models.CharField(max_length=150)
     curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
@@ -42,7 +42,7 @@ class ProeficienciaIdioma(models.Model):
         (2, "Bem")
     )
     idioma = models.CharField(max_length=100)
-    compreensao = models.IntegerField()
+    compreensao = models.IntegerField(choices=NivelProeficiencia)
     fala = models.IntegerField(choices=NivelProeficiencia)
     escrita = models.IntegerField(choices=NivelProeficiencia)
     leitura = models.IntegerField(choices=NivelProeficiencia)
@@ -101,7 +101,7 @@ class EnderecoProfissional(models.Model):
 class Pesquisador(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     nome = models.CharField(max_length=200)
-    endereco = models.OneToOneField(EnderecoProfissional,on_delete=models.CASCADE)
+    endereco = models.OneToOneField(EnderecoProfissional, on_delete=models.CASCADE)
     cpf = models.CharField(max_length=11)
     telefone = models.CharField(max_length=11)
     email = models.EmailField()

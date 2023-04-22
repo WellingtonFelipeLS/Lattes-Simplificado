@@ -1,0 +1,64 @@
+.accordion > input[type="checkbox"] {
+	position: absolute;
+	left: -100vw;
+}
+
+.accordion .content {
+	overflow-y: hidden;
+	height: 0;
+	transition: height 0.3s ease;
+}
+
+.accordion > input[type="checkbox"]:checked ~ .content {
+	height: auto;
+	overflow: hidden;
+}
+
+.accordion label {
+	display: block;
+}
+
+.accordion {
+	margin-bottom: 1em;
+}
+
+.accordion > input[type="checkbox"]:checked ~ .content {
+	padding: 15px;
+	border: 1px solid #e8e8e8;
+	border-top: 0;
+}
+
+.accordion .handle {
+	margin: 0;
+	font-size: 1.125em;
+	line-height: 1.2em;
+}
+
+.accordion label {
+	color: #e01919;
+	padding: 15px;
+	cursor: pointer;
+}
+
+.accordion label:hover, .accordion label:focus {
+	background: #f5f2f2;
+}
+
+.accordion .handle label:before {
+	content: "\25BC";
+	display: inline-block;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+.accordion > input[type="checkbox"]:checked ~ .handle label:before {
+	content: "\25B2";
+}
+
+.accordion {
+	max-width: 65em;
+}
+
+.accordion p:last-child {
+	margin-bottom: 0;
+} 

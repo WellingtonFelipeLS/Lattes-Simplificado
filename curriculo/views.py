@@ -5,15 +5,15 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.db.models import signals
 from django.dispatch import receiver
+from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 from .forms import *
-from .models import Curriculo, EnderecoProfissional, Pesquisador
 
 
-def curriculo(request):
-    pesquisador = Pesquisador.objects.get(id=2)
+def curriculo(request, id):
+    pesquisador = Pesquisador.objects.get(user_id=id)
     endereco = pesquisador.endereco
     context = {"nome": pesquisador.nome,
                 "email": pesquisador.email,
@@ -32,45 +32,52 @@ def create_curriculo_e_pesquisador(sender, instance, created, *args, **kwargs):
         Curriculo.objects.create(user=instance)
 
 
-'''@login_required
-def manage_curriculo(request, id):
-    pesquisador = Pesquisador.objects.get(id=id)
-    form = PesquisadorForm(request.POST or None, instance=pesquisador)
-    if request.method == "POST":
-        if form.is_valid():
-            form.save()
-            return redirect('manage', id)
-        else:
-            return HttpResponse('INVÁLIDO')
-
-    return render(request, "manage-profile.html", context={"form": form})'''
-
 @login_required
 def manage_curriculo(request, id):
+    pesquisador = Pesquisador.objects.get(user=id)
     context = {
         'curriculo_form': CurriculoForm(request.POST or None, instance=Curriculo.objects.get(user=id)),
-		'premio_form':PremioForm(request.POST or None),
-		'linha_pesquisa_form': LinhaPesquisaForm(request.POST or None),
-		'producao_bibliografica_form': ProducaoBibliograficaForm(request.POST or None),
-		'proeficiencia_idioma_form': ProeficienciaIdiomaForm(request.POST or None),
-		'producao_tecnica_form': ProducaoTecnicaForm(request.POST or None),
-		'orientacao_academica_form': OrientacaoAcademicaForm(request.POST or None),
-		'atuacao_profissional_form': AtuacaoProfissionalForm(request.POST or None),
-		'pesquisador_form': PesquisadorForm(request.POST or None, instance=Pesquisador.objects.get(user=id)),
-		'graduacao_form': GraduacaoForm(request.POST or None),
-		'area_pesquisa_form': AreaPesquisaForm(request.POST or None),
-		'posgraduacao_form': PosGraduacaoForm(request.POST or None),
-		'projeto_pesquisa_form': ProjetoPesquisaForm(request.POST or None)
-	}
-    
-    #endereco_profissional_form = EnderecoProfissionalForm(request.POST or None)
+        'premio_form':PremioForm(request.POST or None),
+        'linha_pesquisa_form': modelformset_factory(LinhaPesquisa, form=LinhaPesquisaForm, extra=0)(request.POST or None, queryset=LinhaPesquisa.objects.filter(curriculo_id=id)),
+        'producao_bibliografica_form': ProducaoBibliograficaForm(request.POST or None),
+        'proeficiencia_idioma_form': modelformset_factory(ProeficienciaIdioma, form=ProeficienciaIdiomaForm, extra=0)(request.POST or None, queryset=ProeficienciaIdioma.objects.filter(curriculo_id=id)),
+        'producao_tecnica_form': ProducaoTecnicaForm(request.POST or None),
+        'orientacao_academica_form': OrientacaoAcademicaForm(request.POST or None),
+        'atuacao_profissional_form': AtuacaoProfissionalForm(request.POST or None),
+        'pesquisador_form': PesquisadorForm(request.POST or None, instance=pesquisador),
+        'endereco_form': EnderecoProfissionalForm(request.POST or None, instance=pesquisador.endereco),
+        'graduacao_form': GraduacaoForm(request.POST or None),
+        'area_pesquisa_form': AreaPesquisaForm(request.POST or None),
+        'posgraduacao_form': PosGraduacaoForm(request.POST or None),
+        'projeto_pesquisa_form': ProjetoPesquisaForm(request.POST or None)
+    }
+
     if request.method == "POST":
-        if all(form.is_valid() for form in context.values()):
-            for form in context:
+        if 'salvar_dados_pessoais' in request.POST and context['pesquisador_form'].is_valid() and context['endereco_form'].is_valid() and context['curriculo_form'].is_valid():
+            context['pesquisador_form'].save()
+            context['endereco_form'].save()
+            context['curriculo_form'].save()
+            return redirect(f'/manage/{id}#dados-pessoais')
+        if 'add_linha_pesq' in request.POST:
+            LinhaPesquisa.objects.create(curriculo_id=id)
+            return redirect(f'/manage/{id}#linha-de-pesquisa')
+        if 'save_linha_pesq' in request.POST and all(form.is_valid() for form in context['linha_pesquisa_form']):
+            for form in context['linha_pesquisa_form']:
                 form.save()
-            return redirect('manage', id)
+            return redirect(f'/manage/{id}#linha-de-pesquisa')
+        if 'add_idioma' in request.POST:
+            ProeficienciaIdioma.objects.create(curriculo_id=id, compreensao=0, fala=0, leitura=0, escrita=0)
+            return redirect(f'/manage/{id}#proeficiencia_idioma')
+        if 'save_idioma' in request.POST and all(form.is_valid() for form in context['proeficiencia_idioma_form']):
+            for form in context['proeficiencia_idioma_form']:
+                form.save()
+            return redirect(f'/manage/{id}#proeficiencia_idioma')
+        if 'btn-gerar' in request.POST:
+            return curriculo(request, id)
         else:
-            return HttpResponse('INVÁLIDO')
+            print(context['proeficiencia_idioma_form'][0].errors.as_data())
+            print(context['proeficiencia_idioma_form'][0].non_field_errors)
+            return HttpResponse("Inválido")
 
     return render(request, "manage-profile.html", context)
 

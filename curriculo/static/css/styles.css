@@ -19,6 +19,7 @@
 body{
     color: var(--secondary-text-color-black);
 }
+
 .header {
  display: flex;
  border-bottom: 1px solid #EDEEF2 ; 
@@ -26,6 +27,7 @@ body{
  padding: 1rem 4rem;
  align-items: center;
 }
+
 header form{
     color: #555;
     display: flex;
@@ -34,6 +36,7 @@ header form{
     border-radius: 1.2rem;
     background-color: var(--background-color-border) ;
 }
+
 .header input[type="search"]{
   
   background: transparent;
@@ -48,6 +51,7 @@ header form{
  color: var(--highlight-color-purple);
  line-height: -150px;
 }
+
 .header button[type="submit"] {
     text-indent: -999px;
     overflow: hidden;
@@ -110,11 +114,24 @@ fieldset{
 fieldset h2{
     font-size: 1.8rem;
 }
-fieldset .input-block{
- display: flex;
- flex-direction: column;
 
+fieldset .input-block{
+	display: flex;
+	flex-direction: column;
 }
+
+select {
+	display: flex;
+	flex-direction: column;
+	color: var(--secondary-text-color-black);
+    padding: 1rem 0;
+	border: 1px solid var(--background-color-border);
+	border-radius: .8rem;
+	font-size: 1.6rem;
+	padding: 1rem;  
+	outline-color: var(--highlight-color-purple);
+}
+
 fieldset .input-block.input-block-btn{
     flex-direction: row;
     justify-content: flex-end;
@@ -129,32 +146,31 @@ fieldset .input-block input,textarea{
   border: 1px solid var(--background-color-border);
   border-radius: .8rem;
   font-size: 1.6rem;
-  padding: 1rem;
+  padding: 1rem;  
   outline-color: var(--highlight-color-purple);
 }
 fieldset .input-block textarea{
- resize: none;
+	resize: none;
+	margin-bottom: 1%;
+	margin-top: 2%;
 }
-fieldset .input-block input[type="button"]{
+fieldset .input-block input[type="submit"]{
     background-color: var(--highlight-color-purple);
     color: #FFF;
     font-size: 1.4rem;
     font-weight: bold;
-    width: fit-content;
+    width: 100%;
     margin-top: 2rem;
     align-self: flex-end;
     border: 1px solid var(--highlight-color-purple);
     box-shadow: 0px 8px 20px #4e60ff29;
     cursor: pointer;
-    
-    
 }
+
 fieldset > .input-block:last-child{
     margin-top: .8rem;
     border-top: 1px solid var(--background-color-border);
 }
-
-
 
 fieldset .input-block.input-block-btn #btn-gerar{
     background-color: #FFF;
@@ -167,4 +183,8 @@ fieldset .input-block.input-block-btn #btn-gerar:hover{
     background-color: #C7C8D2;
     color: #FFF;
     cursor: pointer;
+}
+
+#btn-salvar-foto {
+	margin-bottom: 2%;
 }

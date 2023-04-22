@@ -21,7 +21,7 @@ class NewUserForm(UserCreationForm):
 class PesquisadorForm(ModelForm):
     class Meta:
         model = Pesquisador
-        fields = ["nome", "email", "telefone", "cpf"]
+        fields = ["nome", "email", "telefone", "cpf", "foto"]
 
 class CurriculoForm(ModelForm):
     class Meta:

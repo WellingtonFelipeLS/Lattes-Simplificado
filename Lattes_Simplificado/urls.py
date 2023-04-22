@@ -23,7 +23,7 @@ from curriculo.views import curriculo, register_request, login_request, manage_c
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('manage/<int:id>', manage_curriculo, name='manage'),
-    path('curriculo', curriculo, name='curriculo'),
+    path('curriculo/<int:id>', curriculo, name='curriculo'),
     path('register', register_request, name='register'),
     path("login", login_request, name="login")
 ]
