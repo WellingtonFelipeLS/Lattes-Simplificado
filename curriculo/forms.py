@@ -1,6 +1,7 @@
+from typing import Any
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import ModelForm, EmailField
+from django.forms import ModelForm, EmailField, NumberInput, TextInput, modelformset_factory
 from .models import *
 
 
@@ -76,17 +77,15 @@ class PesquisadorForm(ModelForm):
 class GraduacaoForm(ModelForm):
     class Meta:
         model = Graduacao
-        fields = ['titulo', 'ano_de_inicio', 'ano_de_termino', 'nome', 'instituicao', 'orientador', 'nota_conclusao', 'palavras_chave']
+        fields = ['ano_de_inicio', 'ano_de_termino', 'nome', 'instituicao']
+        widgets = {
+            'ano_de_inicio': NumberInput(attrs={'name': 'my_custom_name'})
+        }
 
-class AreaPesquisaForm(ModelForm):
-    class Meta:
-        model = AreaPesquisa
-        fields = ['area', 'grande_area', 'sub_area', 'especialidade_area']
-
-class PosGraduacaoForm(ModelForm):
+class PosGraduacaoForm(ModelForm):          
     class Meta:
         model = PosGraduacao
-        fields = ['titulo', 'ano_de_inicio', 'ano_de_termino', 'nome', 'instituicao', 'orientador', 'palavras_chave', 'area_de_pesquisa']
+        fields = ['ano_de_inicio', 'ano_de_termino', 'nome', 'instituicao', 'titulo', 'orientador', 'palavras_chave', 'area', 'grande_area', 'sub_area', 'especialidade_area']
 
 class ProjetoPesquisaForm(ModelForm):
     class Meta:

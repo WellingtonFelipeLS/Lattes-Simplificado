@@ -85,47 +85,60 @@
 					<input type="submit" value="Salvar Dados" name="salvar_dados_pessoais" id="btn-salvar"/>
 				</div>
             </fieldset>
+		</form>
+		<form method="POST">
+			{% csrf_token %}
             <fieldset>
-                <h2>Formação acadêmica</h2>
-                <div class="input-block">
-                    <label for="tipo">Tipo</label>
-                    <input type="text" name="tipo" id="tipo">
-                </div>
-                <div class="input-block">
-                    <label for="nome-formacao">Nome</label>
-                    <input type="text" name="nome-formacao" id="nome-formacao">
-                </div>
-                <div class="input-block">
-                    <label for="formacao-ano-ini">Ano de início</label>
-                    <input type="text" name="formacao-ano-ini" id="formacao-ano-ini">
-                </div>
-                <div class="input-block">
-                    <label for="formacao-ano-fin">Ano de término</label>
-                    <input type="text" name="formacao-ano-fin" id="formacao-ano-fin">
-                </div>
-                <div class="input-block">
-                    <label for="nota">Nota de conclusão</label>
-                    <input type="text" name="nota" id="nota">
-                </div>
-                <div class="input-block">
-                    <label for="instituicao">Instituição</label>
-                    <input type="text" name="instituicao" id="instituicao">
-                </div>
-                <div class="input-block">
-                    <label for="titulo-formacao">Título</label>
-                    <input type="text" name="titulo-formacao" id="titulo-formacao">
-                </div>
-                <div class="input-block">
-                    <label for="palavra-chave">Palavras-chave</label>
-                    <input type="text" name="palavra-chave" id="palavra-chave">
-                </div>
-                <div class="input-block">
-                    <label for="orientador-formacao">Orientador</label>
-                    <input type="text" name="orientador-formacao" id="orientador-formacao">
-                </div>
-                <div class="input-block">                    
-                    <input type="button" value="Adicionar nova formação" name="addFormacao" id="addFormacao">
-                </div>
+                <h2 id="form_academ">Formação acadêmica</h2>
+				<div class="input-block">
+					{{ grad_form.management_form}}
+					{% for hidden in grad_form.hidden_fields %}
+						{{ hidden }}
+					{% endfor %}
+					{% for grad in grad_form %}
+					<section class="accordion">
+						<input type="checkbox" name="collapse-grad" id="grad{{ forloop.counter }}">
+						<h2 class="handle">
+						  <label for="grad{{ forloop.counter }}">Graduação {{ forloop.counter }}</label>
+						</h2>
+						<div class="content">
+							{{ grad.errors }}
+							{{ grad }}
+						</div>
+					</section>
+					{% endfor %}
+					{{ posgrad_form.management_form}}
+					{% for pos_hidden in posgrad_form.hidden_fields %}
+						{{ pos_hidden }}
+					{% endfor %}
+					{% for posgrad in posgrad_form %}
+					<section class="accordion">
+						<input type="checkbox" name="collapse-posgrad" id="posgrad{{ forloop.counter }}">
+						<h2 class="handle">
+						  <label for="posgrad{{ forloop.counter }}">Pós-Graduação {{ forloop.counter }}</label>
+						</h2>
+						<div class="content">
+							{{ posgrad.errors }}
+							{{ posgrad }}
+						</div>
+					</section>
+					{% endfor %}
+					</div>
+					<div class="wrapper" id="form_acad_buttons">
+						<div class="input-block">                    
+							<input type="submit" value="Adicionar Graduação" name="add_grad" id="add_grad">
+						</div>
+						<div class="input-block">                    
+							<input type="submit" value="Adicionar Pós-Graduação" name="add_posgrad" id="add_posgrad">
+						</div>
+						<div class="input-block">                    
+							<input type="submit" value="Salvar Formação" name="save_form_acad" id="save_form_acad">
+						</div>
+					</div>
+				</div>
+		</form>
+		<form method="POST">
+			</fieldset>
             </fieldset>
             <fieldset>
                 <h2>Atuação profissional</h2>
@@ -209,6 +222,8 @@
                     <input type="button" value="Adicionar projeto de pesquisa" name="addAtProfisional" id="addAtProfisional">
                 </div>
             </fieldset>
+			</form>
+			<form metho="POST">
             <fieldset>
                 <h2 id="proeficiencia_idioma">Idiomas</h2>
 				<div class="input-block">
@@ -218,9 +233,9 @@
 				{% endfor %}
 				{% for form_idioma in proeficiencia_idioma_form %}
 				<section class="accordion">
-					<input type="checkbox" name="collapse" id="handle{{ forloop.counter }}">
+					<input type="checkbox" name="collapse-idioma" id="idioma{{ forloop.counter }}">
 					<h2 class="handle">
-					  <label for="handle{{ forloop.counter }}">Idioma {{ forloop.counter }}</label>
+					  <label for="idioma{{ forloop.counter }}">Idioma {{ forloop.counter }}</label>
 					</h2>
 					<div class="content">
 						{{ form_idioma.errors }}
@@ -228,6 +243,7 @@
 					</div>
 				</section>
 				{% endfor %}
+				</div>
 				<div class="wrapper">
 					<div class="input-block">                    
 						<input type="submit" value="Adicionar Idioma" name="add_idioma" id="add_idioma">
@@ -237,6 +253,8 @@
 					</div>
 				</div>
             </fieldset>
+			</form>
+			<form method="POST">
             <fieldset>
                 <h2>Prêmios e títulos</h2>
                 <div class="input-block">

@@ -42,10 +42,10 @@ class ProeficienciaIdioma(models.Model):
         (2, "Bem")
     )
     idioma = models.CharField(max_length=100)
-    compreensao = models.IntegerField(choices=NivelProeficiencia)
-    fala = models.IntegerField(choices=NivelProeficiencia)
-    escrita = models.IntegerField(choices=NivelProeficiencia)
-    leitura = models.IntegerField(choices=NivelProeficiencia)
+    compreensao = models.IntegerField(choices=NivelProeficiencia, default=0)
+    fala = models.IntegerField(choices=NivelProeficiencia, default=0)
+    escrita = models.IntegerField(choices=NivelProeficiencia, default=0)
+    leitura = models.IntegerField(choices=NivelProeficiencia, default=0)
     curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -105,44 +105,32 @@ class Pesquisador(models.Model):
     cpf = models.CharField(max_length=11)
     telefone = models.CharField(max_length=11)
     email = models.EmailField()
-    foto = models.TextField()
+    foto = models.CharField(max_length=200)
 
     def __str__(self):
         return self.nome
 
 class FormacaoAcademica(models.Model):
-    ano_de_inicio = models.IntegerField()
-    ano_de_termino = models.IntegerField()
-    nome = models.CharField(max_length=200)
-    instituicao = models.TextField()
+    ano_de_inicio = models.IntegerField(default=0)
+    ano_de_termino = models.IntegerField(default=0)
+    nome = models.CharField(max_length=200, default='')
+    instituicao = models.CharField(max_length=200, default='')
     curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
-    
+
     class Meta:
         abstract = True
 
 class Graduacao(FormacaoAcademica):
-    titulo = models.CharField(max_length=200)
-    orientador = models.CharField(max_length=200)
-    nota_conclusao = models.FloatField()
-    palavras_chave = models.CharField(max_length=500)
-
-    def __str__(self):
-        return self.titulo
-
-class AreaPesquisa(models.Model):
-    area = models.CharField(max_length=200)
-    grande_area = models.CharField(max_length=200)
-    sub_area = models.CharField(max_length=200)
-    especialidade_area = models.CharField(max_length=200)
+    pass
 
 class PosGraduacao(FormacaoAcademica):
-    titulo = models.CharField(max_length=200)
-    orientador = models.CharField(max_length=200)
-    palavras_chave = models.CharField(max_length=500)
-    area_de_pesquisa = models.ForeignKey(
-        AreaPesquisa,
-        on_delete=models.CASCADE)
-    curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
+    titulo = models.CharField(max_length=200, default='')
+    orientador = models.CharField(max_length=200, default='')
+    palavras_chave = models.CharField(max_length=500, default='')
+    area = models.CharField(max_length=200, default='')
+    grande_area = models.CharField(max_length=200, default='')
+    sub_area = models.CharField(max_length=200, default='')
+    especialidade_area = models.CharField(max_length=200, default='')
     
     def __str__(self):
         return self.titulo

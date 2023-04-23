@@ -8,6 +8,7 @@
     font-size: 62.5%;
 
 }
+
 *{
     padding: 0;
     margin: 0;
@@ -16,16 +17,16 @@
     
 }
 
-body{
+body {
     color: var(--secondary-text-color-black);
 }
 
 .header {
- display: flex;
- border-bottom: 1px solid #EDEEF2 ; 
- justify-content: space-between;
- padding: 1rem 4rem;
- align-items: center;
+	display: flex;
+	border-bottom: 1px solid #EDEEF2 ; 
+	justify-content: space-between;
+	padding: 1rem 4rem;
+	align-items: center;
 }
 
 header form{
@@ -38,18 +39,17 @@ header form{
 }
 
 .header input[type="search"]{
-  
-  background: transparent;
-  margin: 0;
-  padding: .7rem .8rem;
-  font-size: 1.6rem;
-  color: inherit;
-  border: 1px solid transparent;
+	background: transparent;
+	margin: 0;
+	padding: .7rem .8rem;
+	font-size: 1.6rem;
+	color: inherit;
+	border: 1px solid transparent;
 }
 
 .header span{
- color: var(--highlight-color-purple);
- line-height: -150px;
+	color: var(--highlight-color-purple);
+	line-height: -150px;
 }
 
 .header button[type="submit"] {
@@ -82,6 +82,7 @@ header form{
     font-size: 1.6rem;
     padding: 1rem;
  }
+
  .header a:hover{
     color: var(--backgpround-color2);
  }
@@ -91,17 +92,21 @@ header form{
     width: 100%;
     margin: 1rem auto 0;
 }
+
 .container h1{
     font-size: 2rem;
     margin-bottom: 1.4rem;
     padding-left: .4rem;
-
 }
+
 .wrapper{
     display: grid;
     grid-template-columns: 1fr 1fr  ;
     column-gap: 2.8rem;
-   
+}
+
+#form_acad_buttons{
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 fieldset{
@@ -130,6 +135,7 @@ select {
 	font-size: 1.6rem;
 	padding: 1rem;  
 	outline-color: var(--highlight-color-purple);
+	width: 100%;
 }
 
 fieldset .input-block.input-block-btn{
@@ -142,18 +148,21 @@ fieldset .input-block label{
     font-size: 1.2rem;
     padding: 1rem 0;
 }
-fieldset .input-block input,textarea{
-  border: 1px solid var(--background-color-border);
-  border-radius: .8rem;
-  font-size: 1.6rem;
-  padding: 1rem;  
-  outline-color: var(--highlight-color-purple);
+
+fieldset .input-block input, textarea, .accordion{
+	border: 1px solid var(--background-color-border);
+	border-radius: .8rem;
+	font-size: 1.6rem;
+	padding: 1rem;  
+	outline-color: var(--highlight-color-purple);
 }
+
 fieldset .input-block textarea{
 	resize: none;
 	margin-bottom: 1%;
 	margin-top: 2%;
 }
+
 fieldset .input-block input[type="submit"]{
     background-color: var(--highlight-color-purple);
     color: #FFF;

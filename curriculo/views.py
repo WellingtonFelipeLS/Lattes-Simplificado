@@ -3,14 +3,17 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from django.db.models import signals
+from django.db.models import signals, Q
 from django.dispatch import receiver
 from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django import template
 
 from .forms import *
 
+
+register = template.Library()
 
 def curriculo(request, id):
     pesquisador = Pesquisador.objects.get(user_id=id)
@@ -31,6 +34,9 @@ def create_curriculo_e_pesquisador(sender, instance, created, *args, **kwargs):
         Pesquisador.objects.create(user=instance, endereco=endereco)  
         Curriculo.objects.create(user=instance)
 
+@register.filter(name='zip')
+def zip_lists(a, b):
+  return zip(a, b)
 
 @login_required
 def manage_curriculo(request, id):
@@ -46,9 +52,8 @@ def manage_curriculo(request, id):
         'atuacao_profissional_form': AtuacaoProfissionalForm(request.POST or None),
         'pesquisador_form': PesquisadorForm(request.POST or None, instance=pesquisador),
         'endereco_form': EnderecoProfissionalForm(request.POST or None, instance=pesquisador.endereco),
-        'graduacao_form': GraduacaoForm(request.POST or None),
-        'area_pesquisa_form': AreaPesquisaForm(request.POST or None),
-        'posgraduacao_form': PosGraduacaoForm(request.POST or None),
+        'grad_form': modelformset_factory(Graduacao, form=GraduacaoForm, extra=0)(request.POST or None, queryset=Graduacao.objects.filter(curriculo_id=id), auto_id="grad_%s"),
+        'posgrad_form': modelformset_factory(PosGraduacao, form=PosGraduacaoForm, extra=0)(request.POST or None, queryset=PosGraduacao.objects.filter(curriculo_id=id), auto_id="posgrad_%s"),
         'projeto_pesquisa_form': ProjetoPesquisaForm(request.POST or None)
     }
 
@@ -58,6 +63,21 @@ def manage_curriculo(request, id):
             context['endereco_form'].save()
             context['curriculo_form'].save()
             return redirect(f'/manage/{id}#dados-pessoais')
+        if 'add_grad' in request.POST:
+            Graduacao.objects.create(curriculo_id=id)
+            return redirect(f'/manage/{id}#form_academ')
+        if 'add_posgrad' in request.POST:
+            PosGraduacao.objects.create(curriculo_id=id)
+            return redirect(f'/manage/{id}#form_academ')
+        if 'save_form_acad' in request.POST and all(form.is_valid() for form in context['grad_form']) and all(form.is_valid() for form in context['posgrad_form']):
+            print(request.POST)
+            print(context['grad_form'])
+            print(context['posgrad_form'])
+            for form in context['grad_form']:
+                form.save()
+            for form in context['posgrad_form']:
+                form.save()
+            return redirect(f'/manage/{id}#form_academ')
         if 'add_linha_pesq' in request.POST:
             LinhaPesquisa.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#linha-de-pesquisa')
@@ -66,7 +86,7 @@ def manage_curriculo(request, id):
                 form.save()
             return redirect(f'/manage/{id}#linha-de-pesquisa')
         if 'add_idioma' in request.POST:
-            ProeficienciaIdioma.objects.create(curriculo_id=id, compreensao=0, fala=0, leitura=0, escrita=0)
+            ProeficienciaIdioma.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#proeficiencia_idioma')
         if 'save_idioma' in request.POST and all(form.is_valid() for form in context['proeficiencia_idioma_form']):
             for form in context['proeficiencia_idioma_form']:
@@ -75,9 +95,12 @@ def manage_curriculo(request, id):
         if 'btn-gerar' in request.POST:
             return curriculo(request, id)
         else:
-            print(context['proeficiencia_idioma_form'][0].errors.as_data())
-            print(context['proeficiencia_idioma_form'][0].non_field_errors)
-            return HttpResponse("Inválido")
+            print(request.POST)
+            print(context['grad_form'][0].errors.as_data())
+            print(context['grad_form'][0].non_field_errors)
+            print(context['posgrad_form'][0].errors.as_data())
+            print(context['posgrad_form'][0].non_field_errors)
+            return HttpResponse('Inválido')
 
     return render(request, "manage-profile.html", context)
 

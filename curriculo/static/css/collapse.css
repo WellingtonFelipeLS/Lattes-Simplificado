@@ -24,7 +24,7 @@
 
 .accordion > input[type="checkbox"]:checked ~ .content {
 	padding: 15px;
-	border: 1px solid #e8e8e8;
+	border: 1px solid #ffffff;
 	border-top: 0;
 }
 
@@ -34,14 +34,14 @@
 	line-height: 1.2em;
 }
 
-.accordion label {
-	color: #e01919;
+.accordion .handle label {
 	padding: 15px;
 	cursor: pointer;
 }
 
-.accordion label:hover, .accordion label:focus {
+.accordion .handle label:hover, .accordion .handle label:focus {
 	background: #f5f2f2;
+	border-radius: .8rem;
 }
 
 .accordion .handle label:before {
@@ -61,4 +61,8 @@
 
 .accordion p:last-child {
 	margin-bottom: 0;
-} 
+}
+
+.content input {
+	width: 100%;
+}
