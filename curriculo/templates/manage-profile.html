@@ -256,20 +256,36 @@
 			</fieldset>
 		</form>
 		<form method="POST">
-            <fieldset>
-                <h2>Prêmios e títulos</h2>
-                <div class="input-block">
-                    <label for="premio-titulo">Nome</label>
-                    <input type="text" name="nome-titulo" id="nome-titulo">
-                </div>
-                <div class="input-block">
-                    <label for="premio-ano">Ano</label>
-                    <input type="text" name="nome-titulo" id="nome-titulo">
-                </div>
-                <div class="input-block">                    
-                    <input type="button" value="Adicionar prêmio" name="addIdioma" id="addIdioma">
-                </div>
-            </fieldset>
+			{% csrf_token %}
+			<fieldset>
+				<h2 id="premios">Prêmios e Títulos</h2>
+				<div class="input-block">
+				{{ premio_form.management_form}}
+				{% for hidden in premio_form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+				{% for premio in premio_form %}
+				<section class="accordion">
+					<input type="checkbox" name="collapse-orient_acad" id="orient_acad{{ forloop.counter }}">
+					<h2 class="handle">
+					<label for="orient_acad{{ forloop.counter }}">Prêmio/Título #{{ forloop.counter }}</label>
+					</h2>
+					<div class="content">
+						{{ premio.errors }}
+						{{ premio }}
+					</div>
+				</section>
+				{% endfor %}
+				</div>
+				<div class="wrapper">
+					<div class="input-block">                    
+						<input type="submit" value="Adicionar Prêmio/Título" name="add_premio" id="add_premio">
+					</div>
+					<div class="input-block">                    
+						<input type="submit" value="Salvar Prêmio/Título" name="save_premio" id="save_premio">
+					</div>
+				</div>
+			</fieldset>
 		</form>
 		<form method="POST">
 			{% csrf_token %}

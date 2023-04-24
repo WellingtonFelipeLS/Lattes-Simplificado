@@ -43,7 +43,7 @@ def manage_curriculo(request, id):
     pesquisador = Pesquisador.objects.get(user=id)
     context = {
         'curriculo_form': CurriculoForm(request.POST or None, instance=Curriculo.objects.get(user=id)),
-        'premio_form':PremioForm(request.POST or None),
+        'premio_form': modelformset_factory(Premio, form=PremioForm, extra=0)(request.POST or None, queryset=Premio.objects.filter(curriculo_id=id)),
         'linha_pesquisa_form': modelformset_factory(LinhaPesquisa, form=LinhaPesquisaForm, extra=0)(request.POST or None, queryset=LinhaPesquisa.objects.filter(curriculo_id=id)),
         'producao_bibliografica_form': modelformset_factory(ProducaoBibliografica, form=ProducaoBibliograficaForm, extra=0)(request.POST or None, queryset=ProducaoBibliografica.objects.filter(curriculo_id=id)),
         'proeficiencia_idioma_form': modelformset_factory(ProeficienciaIdioma, form=ProeficienciaIdiomaForm, extra=0)(request.POST or None, queryset=ProeficienciaIdioma.objects.filter(curriculo_id=id)),
@@ -85,6 +85,12 @@ def manage_curriculo(request, id):
         if 'save_idioma' in request.POST and context['proeficiencia_idioma_form'].is_valid():
             context['proeficiencia_idioma_form'].save()
             return redirect(f'/manage/{id}#proeficiencia_idioma')
+        if 'add_premio' in request.POST:
+            Premio.objects.create(curriculo_id=id)
+            return redirect(f'/manage/{id}#premios')
+        if 'save_premio' in request.POST and context['premio_form'].is_valid():
+            context['premio_form'].save()
+            return redirect(f'/manage/{id}#premios')
         if 'add_orient_acad' in request.POST:
             OrientacaoAcademica.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#orient_acad')

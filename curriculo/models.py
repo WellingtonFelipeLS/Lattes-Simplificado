@@ -6,8 +6,8 @@ class Curriculo(models.Model):
     resumo = models.TextField()
 
 class Premio(models.Model):
-    ano = models.IntegerField()
-    descricao = models.TextField()
+    ano = models.IntegerField(default=0)
+    descricao = models.TextField(default='')
     curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
