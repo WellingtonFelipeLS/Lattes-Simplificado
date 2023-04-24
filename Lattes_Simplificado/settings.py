@@ -83,7 +83,7 @@ DATABASES = {
 		'ENGINE': 'django.db.backends.postgresql',
 		'NAME':'Lattes_Simplificado',
 		'USER': 'postgres',
-		'PASSWORD': 'minhasenhadopostgre',
+		'PASSWORD': '33937020',
 		'HOST': 'localhost',
 		'PORT': '5432',
 	}

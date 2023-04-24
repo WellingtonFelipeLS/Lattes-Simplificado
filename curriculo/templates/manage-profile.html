@@ -140,7 +140,40 @@
 		<form method="POST">
 			</fieldset>
             </fieldset>
-            <fieldset>
+		</form>
+		<form method="POST"> 
+			<fieldset>
+                <h2 id="linha-de-pesquisa">Atuação profissional</h2>
+                <div class="input-block">
+					{{ atuacao_profissional_form.management_form}}
+					{% for hidden in atuacao_profissional_form.hidden_fields %}
+						{{ hidden }}
+					{% endfor %}
+					{% for atuacao_profissional in atuacao_profissional_form %}
+					<section class="accordion">
+						<input type="checkbox" name="collapse-atuacao_profissional" id="atuacao_profissional{{ forloop.counter }}">
+						<h2 class="handle">
+						<label for="atuacao_profissional{{ forloop.counter }}">Atuação Profisinal #{{ forloop.counter }}</label>
+						</h2>
+						<div class="content">
+							{{ atuacao_profissional.errors }}
+							{{ atuacao_profissional }}
+						</div>
+					</section>
+					{% endfor %}
+                </div>
+				<div class="wrapper">
+					<div class="input-block">                    
+						<input type="submit" value="Adicionar atuacação profissional" name="add_atucao_prof" id="add_atucao_prof">
+					</div>
+					<div class="input-block">                    
+						<input type="submit" value="Salvar atuacação profissional" name="save_atuacao_prof" id="save_atuacao_prof">
+					</div>
+				</div>
+            </fieldset>
+		</form>
+		<form method="POST"> 
+			<fieldset>
                 <h2>Atuação profissional</h2>
                 <div class="input-block">
                     <label for="vinculo">Vínculo</label>
@@ -171,7 +204,9 @@
                 </div>
                 
             </fieldset>
-            <fieldset>
+		</form>
+		<form method="POST"> 
+			<fieldset>
                 <h2 id="linha-de-pesquisa">Linhas de pesquisa</h2>
                 <div class="input-block">
 					{{ linha_pesquisa_form.management_form}}
@@ -192,37 +227,39 @@
 					</div>
 				</div>
             </fieldset>
-            <fieldset>
-                <h2>Projetos de pesquisa</h2>
-                <div class="input-block">
-                    <label for="projeto-titulo">Título</label>
-                    <input type="text" name="projeto-titulo" id="projeto-titulo">
-                </div>
-                <div class="input-block">
-                    <label for="projeto-dt-ini">Ano de início</label>
-                    <input type="text" name="projeto-dt-ini" id="projeto-dt-ini">
-                </div>
-                <div class="input-block">
-                    <label for="projeto-dt-fin">Ano de término</label>
-                    <input type="text" name="projeto-dt-fin" id="projeto-dt-fin">
-                </div>
-                <div class="input-block">
-                    <label for="integrantes">Integrantes</label>
-                    <input type="text" name="integrantes" id="integrantes">
-                </div>
-                <div class="input-block">
-                    <label for="situacao">Situação</label>
-                    <input type="text" name="situacao" id="situacao">
-                </div>
-                <div class="input-block">
-                    <label for="projeto-descricao">Descrição</label>
-                    <textarea type="text" name="projeto-descricao" id="projeto-descricao"></textarea>
-                </div>
-                <div class="input-block">                    
-                    <input type="button" value="Adicionar projeto de pesquisa" name="addAtProfisional" id="addAtProfisional">
-                </div>
-            </fieldset>
 		</form>
+		<form method="POST"> 
+			<fieldset>
+                <h2 id="linha-de-pesquisa">Projetos de pesquisa</h2>
+                <div class="input-block">
+					{{ projeto_pesquisa_form.management_form}}
+					{% for hidden in projeto_pesquisa_form.hidden_fields %}
+						{{ hidden }}
+					{% endfor %}
+					{% for projeto_pesquisa in projeto_pesquisa_form %}
+					<section class="accordion">
+						<input type="checkbox" name="collapse-projeto_pesquisa" id="projeto_pesquisa{{ forloop.counter }}">
+						<h2 class="handle">
+						<label for="projeto_pesquisa{{ forloop.counter }}">Projeto de pesquisa #{{ forloop.counter }}</label>
+						</h2>
+						<div class="content">
+							{{ projeto_pesquisa.errors }}
+							{{ projeto_pesquisa }}
+						</div>
+					</section>
+					{% endfor %}
+                </div>
+				<div class="wrapper">
+					<div class="input-block">                    
+						<input type="submit" value="Adicionar projeto de pesquisa" name="add_proj_pesq" id="add_proj_pesq">
+					</div>
+					<div class="input-block">                    
+						<input type="submit" value="Salvar projeto de pesquisa" name="save_proje_pesq" id="save_proje_pesq">
+					</div>
+				</div>
+            </fieldset>
+		</form>                  
+	
 		<form method="POST">
 			{% csrf_token %}
 			<fieldset>
