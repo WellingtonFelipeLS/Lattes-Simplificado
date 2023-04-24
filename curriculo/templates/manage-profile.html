@@ -136,6 +136,7 @@
 			</fieldset>
 		</form>
 		<form method="POST"> 
+			{% csrf_token %}
 			<fieldset>
                 <h2 id="atuacao_profissional">Atuações Profissionais</h2>
                 <div class="input-block">
@@ -158,15 +159,16 @@
                 </div>
 				<div class="wrapper">
 					<div class="input-block">                    
-						<input type="submit" value="Adicionar atuacação profissional" name="add_atuacao_prof" id="add_atuacao_prof">
+						<input type="submit" value="Adicionar Atuação Profissional" name="add_atuacao_prof" id="add_atuacao_prof">
 					</div>
 					<div class="input-block">                    
-						<input type="submit" value="Salvar atuacação profissional" name="save_atuacao_prof" id="save_atuacao_prof">
+						<input type="submit" value="Salvar Atuação Profissional" name="save_atuacao_prof" id="save_atuacao_prof">
 					</div>
 				</div>
             </fieldset>
 		</form>
 		<form method="POST"> 
+			{% csrf_token %}
 			<fieldset>
                 <h2 id="linha-de-pesquisa">Linhas de Pesquisa</h2>
                 <div class="input-block">
@@ -190,6 +192,7 @@
             </fieldset>
 		</form>
 		<form method="POST"> 
+			{% csrf_token %}
 			<fieldset>
                 <h2 id="projeto_pesquisa">Projetos de Pesquisa</h2>
                 <div class="input-block">

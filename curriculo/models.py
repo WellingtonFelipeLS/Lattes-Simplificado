@@ -78,12 +78,12 @@ class OrientacaoAcademica(models.Model):
         return self.instituicao
 
 class AtuacaoProfissional(models.Model):
-    ano_de_inicio = models.IntegerField()
-    ano_de_termino = models.IntegerField()
-    instituicao = models.CharField(max_length=300)
-    vinculo = models.CharField(max_length=100)
-    enquad_profissional = models.CharField(max_length=200)
-    regime = models.CharField(max_length=100)
+    ano_de_inicio = models.IntegerField(default=0)
+    ano_de_termino = models.IntegerField(default=0)
+    instituicao = models.CharField(max_length=300, default='')
+    vinculo = models.CharField(max_length=100, default='')
+    enquad_profissional = models.CharField(max_length=200, default='')
+    regime = models.CharField(max_length=100, default='')
     curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -136,12 +136,12 @@ class PosGraduacao(FormacaoAcademica):
         return self.titulo
 
 class ProjetoPesquisa(models.Model):
-    integrantes = models.TextField()
-    titulo = models.CharField(max_length=200)
-    ano_de_inicio = models.IntegerField()
-    ano_de_termino = models.IntegerField()
-    descricao = models.TextField()
-    situacao = models.CharField(max_length=100)
+    integrantes = models.TextField(default='')
+    titulo = models.CharField(max_length=200, default='')
+    ano_de_inicio = models.IntegerField(default=0)
+    ano_de_termino = models.IntegerField(default=0)
+    descricao = models.TextField(default='')
+    situacao = models.CharField(max_length=100, default='')
     curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):

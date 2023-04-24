@@ -76,8 +76,8 @@ def manage_curriculo(request, id):
         if 'add_atuacao_prof' in request.POST:
             AtuacaoProfissional.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#atuacao_profissional')
-        if 'save_atuacao_prof' in request.POST and context['atuacao_profissional'].is_valid():
-            context['atuacao_profissional'].save()
+        if 'save_atuacao_prof' in request.POST and context['atuacao_profissional_form'].is_valid():
+            context['atuacao_profissional_form'].save()
             return redirect(f'/manage/{id}#atuacao_profissional')
         if 'add_linha_pesq' in request.POST:
             LinhaPesquisa.objects.create(curriculo_id=id)
@@ -88,8 +88,8 @@ def manage_curriculo(request, id):
         if 'add_proj_pesq' in request.POST:
             ProjetoPesquisa.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#projeto_pesquisa')
-        if 'save_proj_pesq' in request.POST and context['projeto_pesquisa'].is_valid():
-            context['projeto_pesquisa'].save()
+        if 'save_proj_pesq' in request.POST and context['projeto_pesquisa_form'].is_valid():
+            context['projeto_pesquisa_form'].save()
             return redirect(f'/manage/{id}#projeto_pesquisa')
         if 'add_idioma' in request.POST:
             ProeficienciaIdioma.objects.create(curriculo_id=id)

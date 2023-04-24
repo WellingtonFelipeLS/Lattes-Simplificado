@@ -7,7 +7,7 @@
 	<title>Lattes Simplificado</title>
 	
 	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/curriculo.css' %}">
 </head>
 <body>
 	<div class="secoes">
@@ -42,20 +42,33 @@
 			{% endfor %}
 			<p>Pós-Graduações</p>
 			{% for posgrad in posgrad %}
-				{{posgrad}}
+				<h2>{{ posgrad.nome }}</h2>
+				<h2>{{ posgrad.instituicao }}</h2>
+				<h2>{{ posgrad.ano_de_inicio }} - {{ posgrad.ano_de_termino }}</h2>
+				<h2>{{ posgrad.titulo }} </h2>
+				<h2>{{ posgrad.orietador }}</h2>
+				<h2>{{ posgrad.palavras_chave }}</h2>
+				<h2>{{ posgrad.grande_area }} </h2>
+				<h2>{{ posgrad.area }} </h2>
+				<h2>{{ posgrad.sub_area }} </h2>
+				<h2>{{ posgrad.especialidade_area }} </h2>	
 			{% endfor %}
 		</div>
 		<div class="atuacao-profissional">
 			<p>Atuações Profissionais</p>
 			{% for at_prof in atuacao_profissional %}
-				{{ at_prof }}
+				<h2>{{ at_prof.instituicao }}</h2>
+				<h2>{{ at_prof.ano_de_inicio }} - {{ at_prof.ano_de_termino }} Vínculo: {{ at_prof.vinculo }}, Enquadramento Funcional: {{ at_prof.enquad_profissional }}, Regime: {{ at_prof.regime }}</h2>
+				<h2></h2>
 			{% endfor %}
 		</div>
 		<div class="linhas_pesquisa">
 			<p>Linhas de Pesquisa</p>
+			<ul>
 			{% for linha_pesq in linha_pesquisa %}
-				{{ linha_pesq }}
+				<li>{{ linha_pesq }}</li>
 			{% endfor %}
+			</ul>
 		</div>
 		<div class="proj_pesq">
 			<p>Projetos de Pesquisa</p>

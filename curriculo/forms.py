@@ -1,7 +1,7 @@
 from typing import Any
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import ModelForm, EmailField, NumberInput, TextInput, modelformset_factory, ImageField, FileInput
+from django.forms import ModelForm, EmailField, ImageField, FileInput
 from .models import *
 
 class NewUserForm(UserCreationForm):
