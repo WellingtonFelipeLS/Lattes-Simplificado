@@ -78,9 +78,6 @@ class GraduacaoForm(ModelForm):
     class Meta:
         model = Graduacao
         fields = ['ano_de_inicio', 'ano_de_termino', 'nome', 'instituicao']
-        widgets = {
-            'ano_de_inicio': NumberInput(attrs={'name': 'my_custom_name'})
-        }
 
 class PosGraduacaoForm(ModelForm):          
     class Meta:

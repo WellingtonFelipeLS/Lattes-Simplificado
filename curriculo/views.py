@@ -52,8 +52,8 @@ def manage_curriculo(request, id):
         'atuacao_profissional_form': AtuacaoProfissionalForm(request.POST or None),
         'pesquisador_form': PesquisadorForm(request.POST or None, instance=pesquisador),
         'endereco_form': EnderecoProfissionalForm(request.POST or None, instance=pesquisador.endereco),
-        'grad_form': modelformset_factory(Graduacao, form=GraduacaoForm, extra=0)(request.POST or None, queryset=Graduacao.objects.filter(curriculo_id=id), auto_id="grad_%s"),
-        'posgrad_form': modelformset_factory(PosGraduacao, form=PosGraduacaoForm, extra=0)(request.POST or None, queryset=PosGraduacao.objects.filter(curriculo_id=id), auto_id="posgrad_%s"),
+        'grad_form': modelformset_factory(Graduacao, form=GraduacaoForm, extra=0)(request.POST or None, queryset=Graduacao.objects.filter(curriculo_id=id), prefix="grad"),
+        'posgrad_form': modelformset_factory(PosGraduacao, form=PosGraduacaoForm, extra=0)(request.POST or None, queryset=PosGraduacao.objects.filter(curriculo_id=id), prefix="posgrad"),
         'projeto_pesquisa_form': ProjetoPesquisaForm(request.POST or None)
     }
 
@@ -69,37 +69,27 @@ def manage_curriculo(request, id):
         if 'add_posgrad' in request.POST:
             PosGraduacao.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#form_academ')
-        if 'save_form_acad' in request.POST and all(form.is_valid() for form in context['grad_form']) and all(form.is_valid() for form in context['posgrad_form']):
+        if 'save_form_acad' in request.POST and context['grad_form'].is_valid() and context['posgrad_form'].is_valid():
             print(request.POST)
-            print(context['grad_form'])
-            print(context['posgrad_form'])
-            for form in context['grad_form']:
-                form.save()
-            for form in context['posgrad_form']:
-                form.save()
+            context['grad_form'].save()
+            context['posgrad_form'].save()
             return redirect(f'/manage/{id}#form_academ')
         if 'add_linha_pesq' in request.POST:
             LinhaPesquisa.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#linha-de-pesquisa')
-        if 'save_linha_pesq' in request.POST and all(form.is_valid() for form in context['linha_pesquisa_form']):
-            for form in context['linha_pesquisa_form']:
-                form.save()
+        if 'save_linha_pesq' in request.POST and context['linha_pesquisa_form'].is_valid():
+            context['linha_pesquisa_form'].save()
             return redirect(f'/manage/{id}#linha-de-pesquisa')
         if 'add_idioma' in request.POST:
             ProeficienciaIdioma.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#proeficiencia_idioma')
-        if 'save_idioma' in request.POST and all(form.is_valid() for form in context['proeficiencia_idioma_form']):
-            for form in context['proeficiencia_idioma_form']:
-                form.save()
+        if 'save_idioma' in request.POST and context['proeficiencia_idioma_form'].is_valid():
+            print(request.POST)
+            context['proeficiencia_idioma_form'].save()
             return redirect(f'/manage/{id}#proeficiencia_idioma')
         if 'btn-gerar' in request.POST:
             return curriculo(request, id)
         else:
-            print(request.POST)
-            print(context['grad_form'][0].errors.as_data())
-            print(context['grad_form'][0].non_field_errors)
-            print(context['posgrad_form'][0].errors.as_data())
-            print(context['posgrad_form'][0].non_field_errors)
             return HttpResponse('Inválido')
 
     return render(request, "manage-profile.html", context)
