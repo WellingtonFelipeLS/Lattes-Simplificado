@@ -77,7 +77,7 @@ class PesquisadorForm(ModelForm):
 class GraduacaoForm(ModelForm):
     class Meta:
         model = Graduacao
-        fields = ['ano_de_inicio', 'ano_de_termino', 'nome', 'instituicao']
+        fields = ['ano_de_inicio', 'ano_de_termino', 'nome', 'instituicao'] 
 
 class PosGraduacaoForm(ModelForm):          
     class Meta:

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{% load static %}
+
+<head>
+	<meta charset="UTF-8">
+	<title>Lattes Simplificado</title>
+	
+	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+</head>
+<body>
+	<div class="secoes">
+		<div class="principal">
+			<img id="foto" src="{% static 'images/imagem_michel.png' %}" alt="Foto">
+			<div>
+				<h1>Nome Completo</h1>
+				<p>{{ pesquisador.nome }}</p>
+			</div>
+			<div>
+				<h1>Email</h1>
+				<p>{{ pesquisador.email }}</p>
+			</div>
+			<div id="resumo">
+				<h1>Resumo</h1>
+				{{ curriculo.resumo }}
+			</div>
+		</div>
+		<div class="endereco">
+			<p>Endereço</p>
+			<h2>{{ endereco.logradouro }}</h2>
+			<h2>{{ endereco.bairro }}</h2>
+			<h2>{{ endereco.cidade }}</h2>
+			<h2>{{ endereco.estado }}</h2>
+		</div>
+		<div class="formacao-academica">
+			<p>Graduações</p>
+			{% for grad in grad %}
+				<h2>{{ grad.nome }}</h2>
+				<h2>{{ grad.instituicao }}</h2>
+				<h2>{{ grad.ano_de_inicio }} - {{ grad.ano_de_termino }}</h2>
+			{% endfor %}
+			<p>Pós-Graduações</p>
+			{% for posgrad in posgrad %}
+				{{posgrad}}
+			{% endfor %}
+		</div>
+	</div>
+
+</body>
+</html>
