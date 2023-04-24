@@ -99,7 +99,7 @@
 					<section class="accordion">
 						<input type="checkbox" name="collapse-grad" id="grad{{ forloop.counter }}">
 						<h2 class="handle">
-						  <label for="grad{{ forloop.counter }}">Graduação {{ forloop.counter }}</label>
+						  <label for="grad{{ forloop.counter }}">Graduação #{{ forloop.counter }}</label>
 						</h2>
 						<div class="content">
 							{{ grad.errors }}
@@ -236,7 +236,7 @@
 				<section class="accordion">
 					<input type="checkbox" name="collapse-idioma" id="idioma{{ forloop.counter }}">
 					<h2 class="handle">
-					<label for="idioma{{ forloop.counter }}">Idioma {{ forloop.counter }}</label>
+					<label for="idioma{{ forloop.counter }}">Idioma #{{ forloop.counter }}</label>
 					</h2>
 					<div class="content">
 						{{ form_idioma.errors }}
@@ -292,38 +292,38 @@
                     <input type="button" value="Adicionar orientação acadêmica" name="addOrintacao" id="addOrintacao">
                 </div>
             </fieldset>
-            <fieldset>
-                <h2>Produção bibliográfica</h2>
-                <div class="input-block">
-                    <label for="prod-biblig-titulo">Título</label>
-                    <input type="text" name="prod-biblig-titulo" id="prod-biblig-titulo">
-                </div>
-                <div class="input-block">
-                    <label for="prod-biblig-autores">Autores</label>
-                    <input type="text" name="prod-biblig-autores" id="prod-biblig-autores">
-                </div>
-               <div class="wrapper">
-                <div class="input-block">
-                    <label for="prod-biblig-edicao">Edição</label>
-                    <input type="text" name="prod-biblig-edicao" id="prod-biblig-edicao">
-                </div>
-                <div class="input-block">
-                    <label for="prod-biblig-ano">Ano</label>
-                    <input type="text" name="prod-biblig-ano" id="prod-biblig-ano">
-                </div>
-               </div>
-                <div class="input-block">
-                    <label for="prod-biblig-pagina-ini">Página inicial</label>
-                    <input type="text" name="prod-biblig-pagina-ini" id="prod-biblig-pagina-ini">
-                </div>
-                <div class="input-block">
-                    <label for="prod-biblig-pag-fin">Página final</label>
-                    <input type="text" name="prod-biblig-pag-fin" id="prod-biblig-pag-fin">
-                </div>
-                <div class="input-block">                    
-                    <input type="button" value="Adicionar produção bibliográfica" name="addIdioma" id="addIdioma">
-                </div>
-            </fieldset>
+		</form>
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset>
+				<h2 id="prod_bib">Produção Bibliográfica</h2>
+				<div class="input-block">
+				{{ producao_bibliografica_form.management_form}}
+				{% for hidden in producao_bibliografica_form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+				{% for prod_bib in producao_bibliografica_form %}
+				<section class="accordion">
+					<input type="checkbox" name="collapse-prod_bib" id="prod_bib{{ forloop.counter }}">
+					<h2 class="handle">
+					<label for="prod_bib{{ forloop.counter }}">Produção Bibliográfica #{{ forloop.counter }}</label>
+					</h2>
+					<div class="content">
+						{{ prod_bib.errors }}
+						{{ prod_bib }}
+					</div>
+				</section>
+				{% endfor %}
+				</div>
+				<div class="wrapper">
+					<div class="input-block">                    
+						<input type="submit" value="Adicionar Produção Bibliográfica" name="add_prod_bib" id="add_prod_bib">
+					</div>
+					<div class="input-block">                    
+						<input type="submit" value="Salvar Produção Bibliográfica" name="save_prod_bib" id="save_prod_bib">
+					</div>
+				</div>
+			</fieldset>
 		</form>
 		<form method="POST">
 			{% csrf_token %}
@@ -338,7 +338,7 @@
 				<section class="accordion">
 					<input type="checkbox" name="collapse-prod_tec" id="prod_tec{{ forloop.counter }}">
 					<h2 class="handle">
-					<label for="prod_tec{{ forloop.counter }}">Produção Técnica {{ forloop.counter }}</label>
+					<label for="prod_tec{{ forloop.counter }}">Produção Técnica #{{ forloop.counter }}</label>
 					</h2>
 					<div class="content">
 						{{ form_prod.errors }}

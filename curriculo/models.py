@@ -24,12 +24,12 @@ class LinhaPesquisa(models.Model):
         verbose_name_plural = "Linhas de Pesquisa"
 
 class ProducaoBibliografica(models.Model):
-    titulo = models.CharField(max_length=300)
-    autores = models.TextField()
-    pagina_inicial = models.IntegerField()
-    pagina_final = models.IntegerField()
-    edicao = models.CharField(max_length=100)
-    ano = models.IntegerField()
+    titulo = models.CharField(max_length=300, default='')
+    autores = models.CharField(max_length=300, default='')
+    pagina_inicial = models.IntegerField(default=0)
+    pagina_final = models.IntegerField(default=0)
+    edicao = models.CharField(max_length=100,  default='')
+    ano = models.IntegerField(default=0)
     curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -53,7 +53,7 @@ class ProeficienciaIdioma(models.Model):
 
 class ProducaoTecnica(models.Model):
     titulo = models.CharField(max_length=300, default='')
-    autores = models.TextField(default='')
+    autores = models.CharField(max_length=300,default='')
     ano = models.IntegerField(default=0)
     curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
