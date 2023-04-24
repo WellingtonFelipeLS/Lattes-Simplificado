@@ -51,13 +51,12 @@ def manage_curriculo(request, id):
         'producao_tecnica_form': modelformset_factory(ProducaoTecnica, form=ProducaoTecnicaForm, extra=0)(request.POST or None, queryset=ProducaoTecnica.objects.filter(curriculo_id=id)),
         'orientacao_academica_form': modelformset_factory(OrientacaoAcademica, form=OrientacaoAcademicaForm, extra=0)(request.POST or None, queryset=OrientacaoAcademica.objects.filter(curriculo_id=id)),
         'atuacao_profissional_form': AtuacaoProfissionalForm(request.POST or None),
-        'pesquisador_form': PesquisadorForm(request.POST or None, instance=pesquisador),
+        'pesquisador_form': PesquisadorForm(request.POST or None, request.FILES or None, instance=pesquisador),
         'endereco_form': EnderecoProfissionalForm(request.POST or None, instance=pesquisador.endereco),
         'grad_form': modelformset_factory(Graduacao, form=GraduacaoForm, extra=0)(request.POST or None, queryset=Graduacao.objects.filter(curriculo_id=id), prefix="grad"),
         'posgrad_form': modelformset_factory(PosGraduacao, form=PosGraduacaoForm, extra=0)(request.POST or None, queryset=PosGraduacao.objects.filter(curriculo_id=id), prefix="posgrad"),
         'projeto_pesquisa_form': ProjetoPesquisaForm(request.POST or None)
     }
-
     if request.method == "POST":
         if 'salvar_dados_pessoais' in request.POST and context['pesquisador_form'].is_valid() and context['endereco_form'].is_valid() and context['curriculo_form'].is_valid():
             context['pesquisador_form'].save()

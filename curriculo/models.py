@@ -105,7 +105,7 @@ class Pesquisador(models.Model):
     cpf = models.CharField(max_length=11)
     telefone = models.CharField(max_length=11)
     email = models.EmailField()
-    foto = models.CharField(max_length=200)
+    foto = models.ImageField('photos')
 
     def __str__(self):
         return self.nome

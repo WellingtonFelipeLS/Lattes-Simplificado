@@ -28,6 +28,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+
+DROPBOX_APP_KEY = '5gs2tfqw2n8hda1'
+
+DROPBOX_APP_SECRET = 'cg028vhax0jn0ny'
+
+DROPBOX_OAUTH2_REFRESH_TOKEN = 'agdgo8uyvQQAAAAAAAAAAY1BPcDqnvbkjjp9kFd7_239SXFeDZa8S4WcY_v4hT_2'
 
 # Application definition
 
@@ -39,7 +46,7 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
     'crispy_forms',
-	'curriculo'
+	'curriculo',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

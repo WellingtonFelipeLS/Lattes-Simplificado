@@ -1,9 +1,8 @@
 from typing import Any
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import ModelForm, EmailField, NumberInput, TextInput, modelformset_factory
+from django.forms import ModelForm, EmailField, NumberInput, TextInput, modelformset_factory, ImageField, FileInput
 from .models import *
-
 
 class NewUserForm(UserCreationForm):
     email = EmailField(required=True)
@@ -20,6 +19,8 @@ class NewUserForm(UserCreationForm):
         return user
 
 class PesquisadorForm(ModelForm):
+    foto = ImageField(widget=FileInput)
+    
     class Meta:
         model = Pesquisador
         fields = ["nome", "email", "telefone", "cpf", "foto"]

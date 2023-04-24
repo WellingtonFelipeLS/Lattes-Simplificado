@@ -19,15 +19,13 @@
         </div>
     </header>
     <section class="container">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
             <fieldset>
                 <h1>Imagem</h1>
                 <div class="input-block avatar">
                     <div class="image-perfil"></div>
-                    <input type="file" value="Alterar" name="image-perfil" id="image-perfil">
 					{{ pesquisador_form.foto }}
-                    <input type="submit" value="Salvar Foto" name="salvar_foto" id="btn-salvar-foto"/>
                 </div>
 				<h1 id="dados-pessoais">Dados Pessoais</h1>
                 <div class="input-block">
