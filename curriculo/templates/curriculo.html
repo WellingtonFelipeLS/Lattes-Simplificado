@@ -12,7 +12,7 @@
 <body>
 	<div class="secoes">
 		<div class="principal">
-			<img id="foto" src="{% static 'images/imagem_michel.png' %}" alt="Foto">
+			<img id="foto" src="/media/{{ pesquisador.foto }}" alt="Foto">
 			<div>
 				<h1>Nome Completo</h1>
 				<p>{{ pesquisador.nome }}</p>
@@ -45,7 +45,54 @@
 				{{posgrad}}
 			{% endfor %}
 		</div>
+		<div class="atuacao-profissional">
+			<p>Atuações Profissionais</p>
+			{% for at_prof in atuacao_profissional %}
+				{{ at_prof }}
+			{% endfor %}
+		</div>
+		<div class="linhas_pesquisa">
+			<p>Linhas de Pesquisa</p>
+			{% for linha_pesq in linha_pesquisa %}
+				{{ linha_pesq }}
+			{% endfor %}
+		</div>
+		<div class="proj_pesq">
+			<p>Projetos de Pesquisa</p>
+			{% for proj_pesq in projeto_pesquisa %}
+				{{ proj_pesq }}
+			{% endfor %}
+		</div>
+		<div class="proeficiencia_idioma">
+			<p>Proficiência em Idiomas</p>
+			{% for proef_idioma in proeficiencia_idioma %}
+				{{ proef_idioma }}
+			{% endfor %}
+		</div>
+		<div class="premios">
+			<p>Prêmios e Títulos</p>
+			{% for prem_tit in premio %}
+				{{ prem_tit }}
+			{% endfor %}
+		</div>
+		<div class="orient_acad">
+			<p>Orientações Acadêmicas</p>
+			{% for orient_acad in orientacao_academica %}
+				{{ orient_acad }}
+			{% endfor %}
+		</div>
+		<div class="prod_bib">
+			<p>Produções Bibliográficas</p>
+			{% for prod_bib in producao_bibliografica %}
+				{{ prod_bib }}
+			{% endfor %}
+		</div>
+		<div class="prod_tec">
+			<p>Produções Técnicas</p>
+			{% for prod_tec in producao_tecnic %}
+				{{ prod_tec }}
+			{% endfor %}
+		</div>
 	</div>
-
 </body>
 </html>

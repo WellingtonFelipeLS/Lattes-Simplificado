@@ -22,12 +22,12 @@ def curriculo(request, id):
         'proeficiencia_idioma': ProeficienciaIdioma.objects.filter(curriculo_id=id),
         'producao_tecnic': ProducaoTecnica.objects.filter(curriculo_id=id),
         'orientacao_academica': OrientacaoAcademica.objects.filter(curriculo_id=id),
-        'atuacao_profissional': AtuacaoProfissionalForm(request.POST or None),
+        'atuacao_profissional': AtuacaoProfissional.objects.filter(curriculo_id=id),
         'pesquisador': pesquisador,
         'endereco': pesquisador.endereco,
         'grad': Graduacao.objects.filter(curriculo_id=id),
         'posgrad': PosGraduacao.objects.filter(curriculo_id=id),
-        'projeto_pesquisa': ProjetoPesquisaForm(request.POST or None)
+        'projeto_pesquisa': ProjetoPesquisa.objects.filter(curriculo_id=id)
     }
     return render(request, 'curriculo.html', context)
 
@@ -73,12 +73,24 @@ def manage_curriculo(request, id):
             context['grad_form'].save()
             context['posgrad_form'].save()
             return redirect(f'/manage/{id}#form_academ')
+        if 'add_atuacao_prof' in request.POST:
+            AtuacaoProfissional.objects.create(curriculo_id=id)
+            return redirect(f'/manage/{id}#atuacao_profissional')
+        if 'save_atuacao_prof' in request.POST and context['atuacao_profissional'].is_valid():
+            context['atuacao_profissional'].save()
+            return redirect(f'/manage/{id}#atuacao_profissional')
         if 'add_linha_pesq' in request.POST:
             LinhaPesquisa.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#linha-de-pesquisa')
         if 'save_linha_pesq' in request.POST and context['linha_pesquisa_form'].is_valid():
             context['linha_pesquisa_form'].save()
             return redirect(f'/manage/{id}#linha-de-pesquisa')
+        if 'add_proj_pesq' in request.POST:
+            ProjetoPesquisa.objects.create(curriculo_id=id)
+            return redirect(f'/manage/{id}#projeto_pesquisa')
+        if 'save_proj_pesq' in request.POST and context['projeto_pesquisa'].is_valid():
+            context['projeto_pesquisa'].save()
+            return redirect(f'/manage/{id}#projeto_pesquisa')
         if 'add_idioma' in request.POST:
             ProeficienciaIdioma.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#proeficiencia_idioma')

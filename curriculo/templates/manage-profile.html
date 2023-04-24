@@ -86,7 +86,7 @@
 		<form method="POST">
 			{% csrf_token %}
             <fieldset>
-                <h2 id="form_academ">Formação acadêmica</h2>
+                <h2 id="form_academ">Formações Acadêmicas</h2>
 				<div class="input-block">
 					{{ grad_form.management_form}}
 					{% for hidden in grad_form.hidden_fields %}
@@ -137,7 +137,7 @@
 		</form>
 		<form method="POST"> 
 			<fieldset>
-                <h2 id="atuacao_profissional">Atuação profissional</h2>
+                <h2 id="atuacao_profissional">Atuações Profissionais</h2>
                 <div class="input-block">
 					{{ atuacao_profissional_form.management_form}}
 					{% for hidden in atuacao_profissional_form.hidden_fields %}
@@ -158,7 +158,7 @@
                 </div>
 				<div class="wrapper">
 					<div class="input-block">                    
-						<input type="submit" value="Adicionar atuacação profissional" name="add_atucao_prof" id="add_atucao_prof">
+						<input type="submit" value="Adicionar atuacação profissional" name="add_atuacao_prof" id="add_atuacao_prof">
 					</div>
 					<div class="input-block">                    
 						<input type="submit" value="Salvar atuacação profissional" name="save_atuacao_prof" id="save_atuacao_prof">
@@ -168,7 +168,7 @@
 		</form>
 		<form method="POST"> 
 			<fieldset>
-                <h2 id="linha-de-pesquisa">Linhas de pesquisa</h2>
+                <h2 id="linha-de-pesquisa">Linhas de Pesquisa</h2>
                 <div class="input-block">
 					{{ linha_pesquisa_form.management_form}}
 					{% for hidden in linha_pesquisa_form.hidden_fields %}
@@ -181,10 +181,10 @@
                 </div>
 				<div class="wrapper">
 					<div class="input-block">                    
-						<input type="submit" value="Adicionar linha de pesquisa" name="add_linha_pesq" id="add_linha_pesq">
+						<input type="submit" value="Adicionar Linha de Pesquisa" name="add_linha_pesq" id="add_linha_pesq">
 					</div>
 					<div class="input-block">                    
-						<input type="submit" value="Salvar linha de pesquisa" name="save_linha_pesq" id="save_linha_pesq">
+						<input type="submit" value="Salvar Linha de Pesquisa" name="save_linha_pesq" id="save_linha_pesq">
 					</div>
 				</div>
             </fieldset>
@@ -381,6 +381,7 @@
 			</fieldset>
 		</form>
 		<form method="POST">
+			{% csrf_token %}
 			<fieldset>
 				<div class="input-block">
 					<input type="submit" value="Gerar currículo" name="btn-gerar" id="btn-gerar"></input>
