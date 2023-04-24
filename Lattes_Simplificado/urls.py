@@ -26,4 +26,4 @@ urlpatterns = [
     path('curriculo/<int:id>', curriculo, name='curriculo'),
     path('register', register_request, name='register'),
     path("login", login_request, name="login")
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
