@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from curriculo.views import curriculo, register_request, login_request, manage_curriculo
+from curriculo.views import curriculo, register_request, login_request, manage_curriculo, logout_request
 
 
 urlpatterns = [
@@ -25,5 +25,6 @@ urlpatterns = [
     path('manage/<int:id>', manage_curriculo, name='manage'),
     path('curriculo/<int:id>', curriculo, name='curriculo'),
     path('register', register_request, name='register'),
-    path("login", login_request, name="login")
+    path("login", login_request, name="login"),
+    path('logout', logout_request, name='logout')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
