@@ -48,7 +48,7 @@ def manage_curriculo(request, id):
         'producao_bibliografica_form': modelformset_factory(ProducaoBibliografica, form=ProducaoBibliograficaForm, extra=0)(request.POST or None, queryset=ProducaoBibliografica.objects.filter(curriculo_id=id)),
         'proeficiencia_idioma_form': modelformset_factory(ProeficienciaIdioma, form=ProeficienciaIdiomaForm, extra=0)(request.POST or None, queryset=ProeficienciaIdioma.objects.filter(curriculo_id=id)),
         'producao_tecnica_form': modelformset_factory(ProducaoTecnica, form=ProducaoTecnicaForm, extra=0)(request.POST or None, queryset=ProducaoTecnica.objects.filter(curriculo_id=id)),
-        'orientacao_academica_form': OrientacaoAcademicaForm(request.POST or None),
+        'orientacao_academica_form': modelformset_factory(OrientacaoAcademica, form=OrientacaoAcademicaForm, extra=0)(request.POST or None, queryset=OrientacaoAcademica.objects.filter(curriculo_id=id)),
         'atuacao_profissional_form': AtuacaoProfissionalForm(request.POST or None),
         'pesquisador_form': PesquisadorForm(request.POST or None, instance=pesquisador),
         'endereco_form': EnderecoProfissionalForm(request.POST or None, instance=pesquisador.endereco),
@@ -85,6 +85,12 @@ def manage_curriculo(request, id):
         if 'save_idioma' in request.POST and context['proeficiencia_idioma_form'].is_valid():
             context['proeficiencia_idioma_form'].save()
             return redirect(f'/manage/{id}#proeficiencia_idioma')
+        if 'add_orient_acad' in request.POST:
+            OrientacaoAcademica.objects.create(curriculo_id=id)
+            return redirect(f'/manage/{id}#orient_acad')
+        if 'save_orient_acad' in request.POST and context['orientacao_academica_form'].is_valid():
+            context['orientacao_academica_form'].save()
+            return redirect(f'/manage/{id}#orient_acad')
         if 'add_prod_bib' in request.POST:
             ProducaoBibliografica.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#prod_bib')

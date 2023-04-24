@@ -270,33 +270,43 @@
                     <input type="button" value="Adicionar prêmio" name="addIdioma" id="addIdioma">
                 </div>
             </fieldset>
-            <fieldset>
-                <h2>Orientações acadêmicas</h2>
-                <div class="input-block">
-                    <label for="orientacao-orientando">Orientando</label>
-                    <input type="text" name="orientacao-orientando" id="orientacao-orientando">
-                </div>
-                <div class="input-block">
-                    <label for="orientacao-instituicao">Instituição</label>
-                    <input type="text" name="orientacao-instituicao" id="orientacao-instituicao">
-                </div>
-                <div class="input-block">
-                    <label for="orientacao-descricao">Descrição</label>
-                    <input type="text" name="orientacao-descricao" id="orientacao-descricao">
-                </div>
-                <div class="input-block">
-                    <label for="orientacao-tipo">Tipo de orientação</label>
-                    <input type="text" name="orientacao-tipo" id="orientacao-tipo">
-                </div>
-                <div class="input-block">                    
-                    <input type="button" value="Adicionar orientação acadêmica" name="addOrintacao" id="addOrintacao">
-                </div>
-            </fieldset>
 		</form>
 		<form method="POST">
 			{% csrf_token %}
 			<fieldset>
-				<h2 id="prod_bib">Produção Bibliográfica</h2>
+				<h2 id="orient_acad">Orientações Acadêmicas</h2>
+				<div class="input-block">
+				{{ orientacao_academica_form.management_form}}
+				{% for hidden in orientacao_academica_form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+				{% for orient_acad in orientacao_academica_form %}
+				<section class="accordion">
+					<input type="checkbox" name="collapse-orient_acad" id="orient_acad{{ forloop.counter }}">
+					<h2 class="handle">
+					<label for="orient_acad{{ forloop.counter }}">Orientação Acadêmica #{{ forloop.counter }}</label>
+					</h2>
+					<div class="content">
+						{{ orient_acad.errors }}
+						{{ orient_acad }}
+					</div>
+				</section>
+				{% endfor %}
+				</div>
+				<div class="wrapper">
+					<div class="input-block">                    
+						<input type="submit" value="Adicionar Orientação Acadêmica" name="add_orient_acad" id="add_orient_acad">
+					</div>
+					<div class="input-block">                    
+						<input type="submit" value="Salvar Orientação Acadêmica" name="save_orient_acad" id="save_orient_acad">
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset>
+				<h2 id="prod_bib">Produções Bibliográficas</h2>
 				<div class="input-block">
 				{{ producao_bibliografica_form.management_form}}
 				{% for hidden in producao_bibliografica_form.hidden_fields %}
@@ -328,7 +338,7 @@
 		<form method="POST">
 			{% csrf_token %}
 			<fieldset>
-				<h2 id="prod_tec">Produção Técnica</h2>
+				<h2 id="prod_tec">Produções Técnicas</h2>
 				<div class="input-block">
 				{{ producao_tecnica_form.management_form}}
 				{% for hidden in producao_tecnica_form.hidden_fields %}

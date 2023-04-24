@@ -68,10 +68,10 @@ class OrientacaoAcademica(models.Model):
         (3, "Doutorado"),
         (4, "Pós-Doutorado")
     )
-    orientando = models.CharField(max_length=200)
-    tipo = models.IntegerField(choices=TipoOrientacao)
-    instituicao = models.CharField(max_length=300)
-    descricao = models.TextField()
+    orientando = models.CharField(max_length=200, default='')
+    tipo = models.IntegerField(choices=TipoOrientacao, default=0)
+    instituicao = models.CharField(max_length=300, default='')
+    descricao = models.TextField(default='')
     curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
