@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from django.db.models import signals, Q
+from django.db.models import signals
 from django.dispatch import receiver
 from django.forms import modelformset_factory
 from django.http import HttpResponse
@@ -12,19 +12,24 @@ from django import template
 
 from .forms import *
 
-
-register = template.Library()
-
 def curriculo(request, id):
-    pesquisador = Pesquisador.objects.get(user_id=id)
-    endereco = pesquisador.endereco
-    context = {"nome": pesquisador.nome,
-                "email": pesquisador.email,
-                "logradouro": endereco.logradouro,
-                "bairro": endereco.bairro,
-                "cidade": endereco.cidade,
-                "estado": endereco.estado}
-    return render(request, 'teste.html', context)
+    pesquisador = Pesquisador.objects.get(user=id)
+    context = {
+        'curriculo': Curriculo.objects.get(user=id),
+        'premio': Premio.objects.filter(curriculo_id=id),
+        'linha_pesquisa': LinhaPesquisa.objects.filter(curriculo_id=id),
+        'producao_bibliografica': ProducaoBibliografica.objects.filter(curriculo_id=id),
+        'proeficiencia_idioma': ProeficienciaIdioma.objects.filter(curriculo_id=id),
+        'producao_tecnic': ProducaoTecnica.objects.filter(curriculo_id=id),
+        'orientacao_academica': OrientacaoAcademica.objects.filter(curriculo_id=id),
+        'atuacao_profissional': AtuacaoProfissionalForm(request.POST or None),
+        'pesquisador': pesquisador,
+        'endereco': pesquisador.endereco,
+        'grad': Graduacao.objects.filter(curriculo_id=id),
+        'posgrad': PosGraduacao.objects.filter(curriculo_id=id),
+        'projeto_pesquisa': ProjetoPesquisaForm(request.POST or None)
+    }
+    return render(request, 'curriculo.html', context)
 
 
 @receiver(signals.post_save, sender = User)
@@ -33,10 +38,6 @@ def create_curriculo_e_pesquisador(sender, instance, created, *args, **kwargs):
         endereco = EnderecoProfissional.objects.create()
         Pesquisador.objects.create(user=instance, endereco=endereco)  
         Curriculo.objects.create(user=instance)
-
-@register.filter(name='zip')
-def zip_lists(a, b):
-  return zip(a, b)
 
 @login_required
 def manage_curriculo(request, id):
