@@ -8,9 +8,9 @@ from django.dispatch import receiver
 from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django import template
 
 from .forms import *
+
 
 def curriculo(request, id):
     pesquisador = Pesquisador.objects.get(user=id)
@@ -50,12 +50,12 @@ def manage_curriculo(request, id):
         'proeficiencia_idioma_form': modelformset_factory(ProeficienciaIdioma, form=ProeficienciaIdiomaForm, extra=0)(request.POST or None, queryset=ProeficienciaIdioma.objects.filter(curriculo_id=id)),
         'producao_tecnica_form': modelformset_factory(ProducaoTecnica, form=ProducaoTecnicaForm, extra=0)(request.POST or None, queryset=ProducaoTecnica.objects.filter(curriculo_id=id)),
         'orientacao_academica_form': modelformset_factory(OrientacaoAcademica, form=OrientacaoAcademicaForm, extra=0)(request.POST or None, queryset=OrientacaoAcademica.objects.filter(curriculo_id=id)),
-        'atuacao_profissional_form': AtuacaoProfissionalForm(request.POST or None),
+        'atuacao_profissional_form': modelformset_factory(AtuacaoProfissional, form=AtuacaoProfissionalForm, extra=0)(request.POST or None, queryset=AtuacaoProfissional.objects.filter(curriculo_id=id)),
         'pesquisador_form': PesquisadorForm(request.POST or None, request.FILES or None, instance=pesquisador),
         'endereco_form': EnderecoProfissionalForm(request.POST or None, instance=pesquisador.endereco),
         'grad_form': modelformset_factory(Graduacao, form=GraduacaoForm, extra=0)(request.POST or None, queryset=Graduacao.objects.filter(curriculo_id=id), prefix="grad"),
         'posgrad_form': modelformset_factory(PosGraduacao, form=PosGraduacaoForm, extra=0)(request.POST or None, queryset=PosGraduacao.objects.filter(curriculo_id=id), prefix="posgrad"),
-        'projeto_pesquisa_form': ProjetoPesquisaForm(request.POST or None)
+        'projeto_pesquisa_form': modelformset_factory(ProjetoPesquisa, form=ProjetoPesquisaForm, extra=0)(request.POST or None, queryset=ProjetoPesquisa.objects.filter(curriculo_id=id)),
     }
     if request.method == "POST":
         if 'salvar_dados_pessoais' in request.POST and context['pesquisador_form'].is_valid() and context['endereco_form'].is_valid() and context['curriculo_form'].is_valid():
@@ -115,9 +115,6 @@ def manage_curriculo(request, id):
             return HttpResponse('Inválido')
 
     return render(request, "manage-profile.html", context)
-
-def home(request):
-    return render(request, 'home.html')
 
 def register_request(request):
     if request.method == "POST":
