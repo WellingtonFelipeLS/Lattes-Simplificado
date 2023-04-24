@@ -47,7 +47,7 @@ def manage_curriculo(request, id):
         'linha_pesquisa_form': modelformset_factory(LinhaPesquisa, form=LinhaPesquisaForm, extra=0)(request.POST or None, queryset=LinhaPesquisa.objects.filter(curriculo_id=id)),
         'producao_bibliografica_form': ProducaoBibliograficaForm(request.POST or None),
         'proeficiencia_idioma_form': modelformset_factory(ProeficienciaIdioma, form=ProeficienciaIdiomaForm, extra=0)(request.POST or None, queryset=ProeficienciaIdioma.objects.filter(curriculo_id=id)),
-        'producao_tecnica_form': ProducaoTecnicaForm(request.POST or None),
+        'producao_tecnica_form': modelformset_factory(ProducaoTecnica, form=ProducaoTecnicaForm, extra=0)(request.POST or None, queryset=ProducaoTecnica.objects.filter(curriculo_id=id)),
         'orientacao_academica_form': OrientacaoAcademicaForm(request.POST or None),
         'atuacao_profissional_form': AtuacaoProfissionalForm(request.POST or None),
         'pesquisador_form': PesquisadorForm(request.POST or None, instance=pesquisador),
@@ -58,6 +58,7 @@ def manage_curriculo(request, id):
     }
 
     if request.method == "POST":
+        print("OLLAAAAA1")
         if 'salvar_dados_pessoais' in request.POST and context['pesquisador_form'].is_valid() and context['endereco_form'].is_valid() and context['curriculo_form'].is_valid():
             context['pesquisador_form'].save()
             context['endereco_form'].save()
@@ -70,7 +71,6 @@ def manage_curriculo(request, id):
             PosGraduacao.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#form_academ')
         if 'save_form_acad' in request.POST and context['grad_form'].is_valid() and context['posgrad_form'].is_valid():
-            print(request.POST)
             context['grad_form'].save()
             context['posgrad_form'].save()
             return redirect(f'/manage/{id}#form_academ')
@@ -84,9 +84,15 @@ def manage_curriculo(request, id):
             ProeficienciaIdioma.objects.create(curriculo_id=id)
             return redirect(f'/manage/{id}#proeficiencia_idioma')
         if 'save_idioma' in request.POST and context['proeficiencia_idioma_form'].is_valid():
-            print(request.POST)
             context['proeficiencia_idioma_form'].save()
             return redirect(f'/manage/{id}#proeficiencia_idioma')
+        if 'add_prod_tec' in request.POST:
+            print("OLLAAAAA2")
+            ProducaoTecnica.objects.create(curriculo_id=id)
+            return redirect(f'/manage/{id}#prod_tec')
+        if 'save_prod_tec' in request.POST and context['producao_tecnica_form'].is_valid():
+            context['producao_tecnica_form'].save()
+            return redirect(f'/manage/{id}#prod_tec')
         if 'btn-gerar' in request.POST:
             return curriculo(request, id)
         else:

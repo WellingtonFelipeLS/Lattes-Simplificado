@@ -222,40 +222,40 @@
                     <input type="button" value="Adicionar projeto de pesquisa" name="addAtProfisional" id="addAtProfisional">
                 </div>
             </fieldset>
-			</form>
-			<form method="POST">
-				{% csrf_token %}
-				<fieldset>
-					<h2 id="proeficiencia_idioma">Idiomas</h2>
-					<div class="input-block">
-					{{ proeficiencia_idioma_form.management_form}}
-					{% for hidden in proeficiencia_idioma_form.hidden_fields %}
-						{{ hidden }}
-					{% endfor %}
-					{% for form_idioma in proeficiencia_idioma_form %}
-					<section class="accordion">
-						<input type="checkbox" name="collapse-idioma" id="idioma{{ forloop.counter }}">
-						<h2 class="handle">
-						<label for="idioma{{ forloop.counter }}">Idioma {{ forloop.counter }}</label>
-						</h2>
-						<div class="content">
-							{{ form_idioma.errors }}
-							{{ form_idioma }}
-						</div>
-					</section>
-					{% endfor %}
+		</form>
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset>
+				<h2 id="proeficiencia_idioma">Idiomas</h2>
+				<div class="input-block">
+				{{ proeficiencia_idioma_form.management_form}}
+				{% for hidden in proeficiencia_idioma_form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+				{% for form_idioma in proeficiencia_idioma_form %}
+				<section class="accordion">
+					<input type="checkbox" name="collapse-idioma" id="idioma{{ forloop.counter }}">
+					<h2 class="handle">
+					<label for="idioma{{ forloop.counter }}">Idioma {{ forloop.counter }}</label>
+					</h2>
+					<div class="content">
+						{{ form_idioma.errors }}
+						{{ form_idioma }}
 					</div>
-					<div class="wrapper">
-						<div class="input-block">                    
-							<input type="submit" value="Adicionar Idioma" name="add_idioma" id="add_idioma">
-						</div>
-						<div class="input-block">                    
-							<input type="submit" value="Salvar Idioma" name="save_idioma" id="save_idioma">
-						</div>
+				</section>
+				{% endfor %}
+				</div>
+				<div class="wrapper">
+					<div class="input-block">                    
+						<input type="submit" value="Adicionar Idioma" name="add_idioma" id="add_idioma">
 					</div>
-				</fieldset>
-			</form>
-			<form method="POST">
+					<div class="input-block">                    
+						<input type="submit" value="Salvar Idioma" name="save_idioma" id="save_idioma">
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		<form method="POST">
             <fieldset>
                 <h2>Prêmios e títulos</h2>
                 <div class="input-block">
@@ -324,24 +324,40 @@
                     <input type="button" value="Adicionar produção bibliográfica" name="addIdioma" id="addIdioma">
                 </div>
             </fieldset>
-            <fieldset>
-                <h2>Produção técnica</h2>
-                <div class="input-block">
-                    <label for="prod-titulo">Título</label>
-                    <input type="text" name="prod-titulo" id="prod-titulo">
-                </div>
-                <div class="input-block">
-                    <label for="prod-autores">Autores</label>
-                    <input type="text" name="prod-autores" id="prod-autores">
-                </div>
-                <div class="input-block">
-                    <label for="prod-ano">Ano</label>
-                    <input type="text" name="prod-ano" id="prod-ano">
-                </div>
-                <div class="input-block">                    
-                    <input type="button" value="Adicionar produção técnica" name="addIdioma" id="addIdioma">
-                </div>
-            </fieldset>
+		</form>
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset>
+				<h2 id="prod_tec">Produção Técnica</h2>
+				<div class="input-block">
+				{{ producao_tecnica_form.management_form}}
+				{% for hidden in producao_tecnica_form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+				{% for form_prod in producao_tecnica_form %}
+				<section class="accordion">
+					<input type="checkbox" name="collapse-prod_tec" id="prod_tec{{ forloop.counter }}">
+					<h2 class="handle">
+					<label for="prod_tec{{ forloop.counter }}">Produção Técnica {{ forloop.counter }}</label>
+					</h2>
+					<div class="content">
+						{{ form_prod.errors }}
+						{{ form_prod }}
+					</div>
+				</section>
+				{% endfor %}
+				</div>
+				<div class="wrapper">
+					<div class="input-block">                    
+						<input type="submit" value="Adicionar Produção Técnica" name="add_prod_tec" id="add_prod_tec">
+					</div>
+					<div class="input-block">                    
+						<input type="submit" value="Salvar Produção Técnica" name="save_prod_tec" id="save_prod_tec">
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		<form method="POST">
 			<fieldset>
 				<div class="input-block">
 					<input type="submit" value="Gerar currículo" name="btn-gerar" id="btn-gerar"></input>

@@ -52,9 +52,9 @@ class ProeficienciaIdioma(models.Model):
         return self.idioma
 
 class ProducaoTecnica(models.Model):
-    titulo = models.CharField(max_length=300)
-    autores = models.TextField()
-    ano = models.IntegerField()
+    titulo = models.CharField(max_length=300, default='')
+    autores = models.TextField(default='')
+    ano = models.IntegerField(default=0)
     curriculo = models.ForeignKey(Curriculo, on_delete=models.CASCADE)
 
     def __str__(self):
